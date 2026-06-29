@@ -22,4 +22,17 @@ class ProductVariant extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getPriceAttribute($value)
+    {
+        if (auth()->check()) {
+            $custom = \App\Models\CustomPrice::where('user_id', auth()->id())
+                ->where('product_id', $this->product_id)
+                ->first();
+            if ($custom) {
+                return $custom->price;
+            }
+        }
+        return $value;
+    }
 }

@@ -79,8 +79,12 @@ class DiscountController extends Controller
             })->count();
         $expired = Discount::where('status', 'active')->whereNotNull('ends_at')->where('ends_at', '<', now())->count();
         $inactive = Discount::where('status', '!=', 'active')->count();
+
+        $customers = \App\Models\User::where('type', 'user')->orderBy('name', 'asc')->get();
+        $products = \App\Models\Product::where('status', 'active')->orderBy('title', 'asc')->get();
+        $customPrices = \App\Models\CustomPrice::with(['user', 'product'])->latest()->get();
         
-        return view('admin.discounts.index', compact('discounts', 'total', 'active', 'expired', 'inactive'));
+        return view('admin.discounts.index', compact('discounts', 'total', 'active', 'expired', 'inactive', 'customers', 'products', 'customPrices'));
     }
 
     public function create()

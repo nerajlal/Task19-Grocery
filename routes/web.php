@@ -193,6 +193,9 @@ Route::prefix('{tenant}/admin')->name('admin.')->middleware(['identify_tenant', 
     Route::put('/discounts/{id}', [App\Http\Controllers\Admin\DiscountController::class, 'update'])->name('discounts.update');
     Route::delete('/discounts/{id}', [App\Http\Controllers\Admin\DiscountController::class, 'destroy'])->name('discounts.destroy');
 
+    Route::post('/custom-prices', [App\Http\Controllers\Admin\CustomPriceController::class, 'store'])->name('custom-prices.store');
+    Route::delete('/custom-prices/{id}', [App\Http\Controllers\Admin\CustomPriceController::class, 'destroy'])->name('custom-prices.destroy');
+
     Route::get('/settings/slider', [App\Http\Controllers\Admin\SliderController::class, 'index'])->name('settings.slider');
     Route::get('/settings/slider/create', [App\Http\Controllers\Admin\SliderController::class, 'create'])->name('settings.slider.create');
     Route::post('/settings/slider', [App\Http\Controllers\Admin\SliderController::class, 'store'])->name('settings.slider.store');
