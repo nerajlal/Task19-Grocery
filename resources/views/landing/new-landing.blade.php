@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vespr — Launch Your Perfume Store</title>
+  <title>Vespr — Launch Your Grocery Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -2418,10 +2418,9 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <span class="hero-eyebrow">— ECOMMERCE FOR FRAGRANCE SELLERS —</span>
-    <h1>Sell your fragrances <br> online. <br> <em>No tech skills needed.</em></h1>
-    <p class="hero-sub">Vespr gives perfumers and fragrance brands a ready-to-launch store — beautiful themes, smart
-      tools, full control. From $9/month.</p>
+    <span class="hero-eyebrow">— ECOMMERCE FOR GROCERY STORES & SUPERMARKETS —</span>
+    <h1>Sell your groceries <br> online. <br> <em>No tech skills needed.</em></h1>
+    <p class="hero-sub">Vespr gives grocery owners, supermarkets, and local shops a ready-to-launch store — beautiful themes, smart inventory tools, and instant delivery features. From $9/month.</p>
     <div class="hero-cta">
       <a href="javascript:void(0)" class="btn-gold pricing-btn-trigger" data-plan="sprout">Start Free — 1 Month on
         Us</a>
@@ -2450,13 +2449,13 @@
         <div class="step-card">
           <div class="step-number">02</div>
           <h3>Pick a theme</h3>
-          <p>Choose from fragrance-specific templates built to convert. Every design works on mobile.</p>
+          <p>Choose from grocery-specific templates built to convert. Every design works on mobile.</p>
           <span class="step-time">5 minutes</span>
         </div>
         <div class="step-card">
           <div class="step-number">03</div>
           <h3>Add your products</h3>
-          <p>Upload fragrances, set prices, write your scent notes. The editor makes it straightforward.</p>
+          <p>Upload products, set prices, and organize categories. The editor makes it straightforward.</p>
           <span class="step-time">15 minutes</span>
         </div>
         <div class="step-card">
@@ -2493,16 +2492,14 @@
       <div class="features-header-wrapper">
         <div class="features-header-left">
           <span class="section-label">Features</span>
-          <h2 class="section-title">Every feature your <br> <em>fragrance store</em> needs</h2>
-          <p class="section-sub">General ecommerce platforms treat a perfume like any other product. <br> Vespr
-            understands that scent is invisible online — so we built tools that <br> let your customers smell with their
-            eyes.</p>
+          <h2 class="section-title">Every feature your <br> <em>grocery store</em> needs</h2>
+          <p class="section-sub">General ecommerce platforms treat groceries like arbitrary items. <br> Vespr
+            understands that fresh groceries need local delivery, batch tracking, and weight-based pricing.</p>
         </div>
         <div class="features-header-right">
           <div class="features-quote-box">
-            <p class="features-quote-text">"We saw a 40% lift in add-to-cart rate after switching to Vespr's scent
-              profile pages."</p>
-            <span class="features-quote-author">— Fragrance brand, UAE</span>
+            <p class="features-quote-text">"We saw a 40% lift in daily orders after switching to Vespr's local delivery system."</p>
+            <span class="features-quote-author">— Supermarket, UAE</span>
           </div>
         </div>
       </div>
@@ -2522,7 +2519,7 @@
                 <circle cx="15.5" cy="14.5" r="1" fill="var(--gold-dark)" />
               </svg>
             </div>
-            <span class="feature-item-title">Fragrance-first themes</span>
+            <span class="feature-item-title">Grocery-first themes</span>
           </div>
           <span class="feature-item-badge">Design</span>
         </div>
@@ -2554,7 +2551,7 @@
                 <line x1="12" y1="22.08" x2="12" y2="12" />
               </svg>
             </div>
-            <span class="feature-item-title">Scent bundle builder</span>
+            <span class="feature-item-title">Grocery combo builder</span>
           </div>
           <span class="feature-item-badge">Sales</span>
         </div>
@@ -2616,7 +2613,7 @@
                 <line x1="8" y1="11" x2="14" y2="11" />
               </svg>
             </div>
-            <span class="feature-item-title">Scent discovery SEO</span>
+            <span class="feature-item-title">Local discovery SEO</span>
           </div>
           <span class="feature-item-badge">Growth</span>
         </div>
@@ -2664,7 +2661,7 @@
         <div class="templates-header-left">
           <span class="section-label">Store templates</span>
           <h2 class="section-title">Choose your <em>aesthetic</em></h2>
-          <p class="section-sub">Every template ships with scent profile pages, mood filters, and layering guides
+          <p class="section-sub">Every template ships with product category pages, filterable search, and quick cart features
             pre-built. Pick the visual identity that matches your brand, then customise from there.</p>
         </div>
         <div class="templates-header-right">
@@ -2688,7 +2685,7 @@
                 stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              <span>Pre-built scent pyramids</span>
+              <span>Pre-built category layouts</span>
             </div>
           </div>
         </div>
@@ -2748,7 +2745,7 @@
           </div>
           <div class="template-info">
             <h3>Editorial Cream</h3>
-            <p>Warm ivory tones with editorial typography. Perfect for heritage and artisan perfumers.</p>
+            <p>Warm ivory tones with editorial typography. Perfect for organic and artisanal groceries.</p>
             <span class="template-tag" style="background:#F0E8D8;color:#8B6914;">Elegant</span>
           </div>
         </div>
@@ -2757,7 +2754,7 @@
           <div class="template-preview"
             style="background: linear-gradient(135deg, #0f1923 0%, #1a2d3d 50%, #0f1923 100%);">
             <div style="text-align:center;">
-              <div style="font-size:11px;letter-spacing:3px;color:rgba(100,180,220,0.6);margin-bottom:8px;">SCENT STUDIO
+              <div style="font-size:11px;letter-spacing:3px;color:rgba(100,180,220,0.6);margin-bottom:8px;">FRESH STUDIO
               </div>
               <div style="font-size:26px;font-weight:700;color:#fff;letter-spacing:-1px;">Modern Minimal</div>
               <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:12px auto;"></div>
@@ -2787,9 +2784,8 @@
         <span class="section-label">Product Pages</span>
         <h2 class="section-title"
           style="font-family: 'Playfair Display', serif; font-weight: 400; font-size: 44px; color: var(--black); margin-bottom: 16px;">
-          Scent-first product pages, <em>designed to convert</em></h2>
-        <p class="section-sub" style="margin: 0 auto; max-width: 620px;">Vespr showcases your scent profiles, note
-          pyramids, and key attributes in a beautiful, structured layout that lets customers smell with their eyes.</p>
+          Product-first layout, <em>designed to convert</em></h2>
+        <p class="section-sub" style="margin: 0 auto; max-width: 620px;">Vespr showcases your product details, freshness tags, and key attributes in a beautiful, structured layout that is easy to navigate.</p>
       </div>
 
       <div class="showcase-container">
@@ -2797,38 +2793,37 @@
         <div class="showcase-side-tabs showcase-side-left">
           <div class="showcase-tab active" data-target="scent-pyramid">
             <span class="showcase-tab-tag">Interactive</span>
-            <h3>Scent Pyramid Layout</h3>
-            <p>Highlight top, heart, and base notes directly next to the product image so customers understand the
-              fragrance.</p>
+            <h3>Category Grid Layout</h3>
+            <p>Highlight categories, freshness indicators, and weight/quantity options directly next to the product image.</p>
           </div>
           <div class="showcase-tab" data-target="editorial-bold">
             <span class="showcase-tab-tag">Modern</span>
-            <h3>Editorial Bold style</h3>
-            <p>Immersive layout featuring full-bleed visuals, large headlines, and clear add-to-cart actions.</p>
+            <h3>Clean Minimal style</h3>
+            <p>Modern layout featuring clean product images, large pricing, and quick add-to-cart actions.</p>
           </div>
         </div>
 
         <!-- Middle: Preview Panel -->
         <div class="showcase-preview-panel">
           <div class="showcase-image-wrapper active has-mobile" id="scent-pyramid">
-            <img class="showcase-desktop-img" src="{{ asset('Images/product pages/1.png') }}" alt="Scent Pyramid Layout">
+            <img class="showcase-desktop-img" src="{{ asset('Images/product pages/1.png') }}" alt="Category Grid Layout">
             <div class="showcase-mobile-mockup">
-              <img src="{{ asset('Images/product pages/m1.png') }}" alt="Scent Pyramid Layout (Mobile)">
+              <img src="{{ asset('Images/product pages/m1.png') }}" alt="Category Grid Layout (Mobile)">
             </div>
           </div>
           <div class="showcase-image-wrapper" id="luxury-split">
             <img class="showcase-desktop-img" src="{{ asset('Images/product pages/2.png') }}" alt="Luxury Split Grid">
           </div>
           <div class="showcase-image-wrapper has-mobile" id="editorial-bold">
-            <img class="showcase-desktop-img" src="{{ asset('Images/product pages/3.png') }}" alt="Editorial Bold style">
+            <img class="showcase-desktop-img" src="{{ asset('Images/product pages/3.png') }}" alt="Clean Minimal style">
             <div class="showcase-mobile-mockup">
-              <img src="{{ asset('Images/product pages/m2.png') }}" alt="Editorial Bold style (Mobile)">
+              <img src="{{ asset('Images/product pages/m2.png') }}" alt="Clean Minimal style (Mobile)">
             </div>
           </div>
           <div class="showcase-image-wrapper has-mobile" id="bangalore-bloom">
-            <img class="showcase-desktop-img" src="{{ asset('Images/product pages/4.png') }}" alt="Modern Scent Attributes">
+            <img class="showcase-desktop-img" src="{{ asset('Images/product pages/4.png') }}" alt="Modern Grocery Attributes">
             <div class="showcase-mobile-mockup">
-              <img src="{{ asset('Images/product pages/m3.png') }}" alt="Modern Scent Attributes (Mobile)">
+              <img src="{{ asset('Images/product pages/m3.png') }}" alt="Modern Grocery Attributes (Mobile)">
             </div>
           </div>
         </div>
@@ -2837,14 +2832,14 @@
         <div class="showcase-side-tabs showcase-side-right">
           <div class="showcase-tab" data-target="luxury-split">
             <span class="showcase-tab-tag">Luxury</span>
-            <h3>Luxury Split Grid</h3>
-            <p>Split screen layout showcasing large high-res bottle images alongside pricing, collections, and accords.
+            <h3>Interactive Grocery Grid</h3>
+            <p>Split screen layout showcasing fresh grocery items alongside pricing, collections, and weight selectors.
             </p>
           </div>
           <div class="showcase-tab" data-target="bangalore-bloom">
             <span class="showcase-tab-tag">Signature</span>
-            <h3>Modern Scent Attributes</h3>
-            <p>Display olfactory family, intensity level, and volume deals to maximize purchase sizes.</p>
+            <h3>Modern Grocery Attributes</h3>
+            <p>Display organic status, freshness window, and volume deals to maximize order sizes.</p>
           </div>
         </div>
       </div>
@@ -2898,7 +2893,7 @@
         <div class="price-card">
           <div class="price-tier">Starter</div>
           <div class="price-name">Sprout</div>
-          <p class="price-desc">For new fragrance sellers getting started.</p>
+          <p class="price-desc">For new grocery sellers getting started.</p>
           <div class="price-amount">
             <span class="price-currency">$</span>
             <span class="price-number">9</span>
@@ -2922,8 +2917,8 @@
         <div class="price-card featured">
           <div class="price-badge">Most popular</div>
           <div class="price-tier">Growth</div>
-          <div class="price-name">Maison</div>
-          <p class="price-desc">For growing brands with an expanding catalogue.</p>
+          <div class="price-name">Market</div>
+          <p class="price-desc">For growing stores with an expanding catalogue.</p>
           <div class="price-amount">
             <span class="price-currency">$</span>
             <span class="price-number">19</span>
@@ -2936,7 +2931,7 @@
             <li><span class="check">✓</span>Any payment gateway</li>
             <li><span class="check">✓</span>Any shipping partner</li>
             <li><span class="check">✓</span>WhatsApp integration</li>
-            <li><span class="check">✓</span>Scent bundle builder</li>
+            <li><span class="check">✓</span>Grocery combo builder</li>
             <li><span class="check">✓</span>Advanced SEO tools</li>
             <li><span class="check">✓</span>Priority WhatsApp support</li>
           </ul>
@@ -2947,8 +2942,8 @@
         <!-- Pro -->
         <div class="price-card">
           <div class="price-tier">Pro</div>
-          <div class="price-name">Heritage</div>
-          <p class="price-desc">For established brands with no limits.</p>
+          <div class="price-name">Supermarket</div>
+          <p class="price-desc">For established chains with no limits.</p>
           <div class="price-amount">
             <span class="price-currency">$</span>
             <span class="price-number">49</span>
@@ -2983,30 +2978,30 @@
   <section id="testimonials" class="features-bg">
     <div class="section-inner">
       <div class="section-label">Success stories</div>
-      <h2 class="section-title">Trusted by <em>fragrance brands</em>.</h2>
-      <p class="section-sub">Independent perfumers and established houses selling online with Vespr.</p>
+      <h2 class="section-title">Trusted by <em>grocery stores</em>.</h2>
+      <p class="section-sub">Independent stores and local supermarkets selling online with Vespr.</p>
       <div class="testimonials-grid">
         <div class="testimonial-card">
           <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Vespr understood the nuance of fragrance storytelling. Our online boutique now
-            feels as premium as our physical atelier. We were live in under a day."</p>
+          <p class="testimonial-text">"Vespr understood the nuance of local grocery retail. Our online store now
+            feels extremely premium and user-friendly. We were live in under a day."</p>
           <div class="testimonial-author">
             <div class="author-avatar">MA</div>
             <div>
               <div class="author-name">Marc-Antoine</div>
-              <div class="author-role">Creative Director, Maison L'Amour</div>
+              <div class="author-role">Operations Manager, L'Amour Grocers</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"The bundle builder alone increased our average order value by 45%. It's the only
-            platform that actually understands how perfume customers buy."</p>
+          <p class="testimonial-text">"The combo builder alone increased our average order value by 45%. It's the only
+            platform that actually understands how grocery customers buy."</p>
           <div class="testimonial-author">
             <div class="author-avatar">ER</div>
             <div>
               <div class="author-name">Elena Rossi</div>
-              <div class="author-role">Founder, Scent & Soul</div>
+              <div class="author-role">Founder, Fresh & Fast</div>
             </div>
           </div>
         </div>
@@ -3018,7 +3013,7 @@
             <div class="author-avatar">JT</div>
             <div>
               <div class="author-name">James Thorne</div>
-              <div class="author-role">CEO, Thorne Fragrance Group</div>
+              <div class="author-role">CEO, Thorne Grocery Group</div>
             </div>
           </div>
         </div>
@@ -3111,7 +3106,7 @@
       <div class="contact-layout">
         <div class="contact-info">
           <div class="section-label">Get in touch</div>
-          <h2>Ready to launch your fragrance store?</h2>
+          <h2>Ready to launch your grocery store?</h2>
           <p>Fill in your details and we'll get back to you on WhatsApp or email — usually within a few hours.</p>
           <div class="contact-detail">
             <span class="contact-dot"></span>
@@ -3213,8 +3208,8 @@
 
   <!-- CTA BANNER -->
   <div class="cta-banner">
-    <h2>Your fragrance store, <em>live today.</em></h2>
-    <p>Join fragrance brands already selling with Vespr. No setup fee. No developer needed.</p>
+    <h2>Your grocery store, <em>live today.</em></h2>
+    <p>Join grocery brands already selling with Vespr. No setup fee. No developer needed.</p>
     <div class="cta-actions">
       <a href="#pricing" class="btn-gold">Start for free →</a>
       <a href="#pricing" class="btn-ghost">View pricing</a>
@@ -3226,9 +3221,9 @@
     <div class="footer-inner">
       <div>
         <div class="footer-brand">vespr<span>.</span></div>
-        <p class="footer-tagline">The e-commerce platform built for perfumers. From artisanal boutiques to global
-          fragrance houses.</p>
-        <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:16px;">perfume@vespr.com</p>
+        <p class="footer-tagline">The e-commerce platform built for grocers and supermarkets. From local shops to global
+          chains.</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:16px;">support@vespr.com</p>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
@@ -3251,7 +3246,7 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 Vespr. All rights reserved.</p>
-      <p>Built for fragrance brands worldwide.</p>
+      <p>Built for grocery brands worldwide.</p>
     </div>
   </footer>
 
@@ -3269,7 +3264,7 @@
             <div class="saas-modal-header">
               <span class="saas-badge class-plan-badge">Starter</span>
               <h2>Tell us about yourself</h2>
-              <p class="saas-lead">Provide your details to initiate your premium fragrance store</p>
+              <p class="saas-lead">Provide your details to initiate your premium grocery store</p>
             </div>
 
             <div class="saas-form-group">
@@ -3414,14 +3409,12 @@
           </div>
 
           <!-- Simulation Tool to Help User Verify Frontend Flow -->
-          <!--
           <div class="saas-simulation-box">
             <span class="sim-badge">SaaS Simulation Tool</span>
             <p>Click below to simulate clicking the verification link in your email.</p>
             <button onclick="simulateVerificationSuccess()" class="saas-simulate-btn">Simulate Email Verification Link
               Click ✓</button>
           </div>
-          -->
         </div>
       </div>
 
@@ -3431,7 +3424,7 @@
           <div class="saas-success-icon-check">✓</div>
           <h2>Account Verified!</h2>
           <p>Your email has been verified successfully. Welcome to Vespr! Let's get started setting up your customized
-            fragrance store.</p>
+            grocery store.</p>
           <button onclick="closeSaaSModal()" class="saas-success-finish-btn">Go to your SaaS dashboard →</button>
         </div>
       </div>

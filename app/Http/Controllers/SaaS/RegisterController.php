@@ -69,7 +69,7 @@ class RegisterController extends Controller
                             <h2 style='color: #111111; font-family: Georgia, serif; font-size: 20px; font-weight: normal; border-bottom: 1px solid #C5A880; padding-bottom: 10px; margin-bottom: 20px;'>Welcome to VESPR!</h2>
                             <p style='font-size: 15px; color: #333333; line-height: 1.6;'>
                                 Hello {$user->name},<br><br>
-                                Thank you for registering your boutique <strong>{$user->site_name}</strong>. Please click the button below to verify your email address and continue setting up your custom storefront:
+                                Thank you for registering your grocery store <strong>{$user->site_name}</strong>. Please click the button below to verify your email address and continue setting up your custom storefront:
                             </p>
                             <div style='text-align: center; margin: 35px 0;'>
                                 <a href='{$verificationUrl}' style='background-color: #111111; color: #FAF9F6; text-decoration: none; padding: 14px 35px; border-radius: 4px; font-size: 13px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid #111111; display: inline-block;'>Verify Email Address</a>
@@ -117,6 +117,6 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Redirect verified Admin User directly to their scoped admin dashboard
-        return redirect()->route('admin.dashboard', ['tenant' => $user->tenant_id])->with('success', 'Welcome! Your fragrance store is live.');
+        return redirect()->route('admin.dashboard', ['tenant' => $user->tenant_id])->with('success', 'Welcome! Your grocery store is live.');
     }
 }

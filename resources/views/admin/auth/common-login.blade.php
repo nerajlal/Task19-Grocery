@@ -317,8 +317,8 @@
       <div class="footer-inner">
         <div>
           <div class="footer-brand">vespr<span>.</span></div>
-          <p class="footer-tagline">The e-commerce platform built for perfumers. From artisanal boutiques to global fragrance houses.</p>
-          <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:16px;">perfume@vespr.com</p>
+          <p class="footer-tagline">The e-commerce platform built for grocers and supermarkets. From local shops to global chains.</p>
+          <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:16px;">support@vespr.com</p>
         </div>
         <div class="footer-col">
           <h4>Platform</h4>
@@ -340,7 +340,7 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Vespr. All rights reserved.</p>
-        <p>Built for fragrance brands worldwide.</p>
+        <p>Built for grocery brands worldwide.</p>
       </div>
     </footer>
 
