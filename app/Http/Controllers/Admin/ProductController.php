@@ -90,6 +90,8 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'status' => 'required|in:active,draft',
+            'min_order_qty' => 'nullable|integer|min:1',
+            'max_order_qty' => 'nullable|integer|min:1|gte:min_order_qty',
             'variants' => 'array',
             'media.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
@@ -97,7 +99,8 @@ class ProductController extends Controller
         $product = Product::create($request->only([
             'title', 'description', 'status', 'type', 'vendor', 
             'collection_id', 'gender', 'olfactory_family', 
-            'intensity', 'oil_concentration', 'notes_top', 'notes_heart', 'notes_base'
+            'intensity', 'oil_concentration', 'notes_top', 'notes_heart', 'notes_base',
+            'min_order_qty', 'max_order_qty'
         ]));
 
         // Handle Variants
@@ -144,6 +147,8 @@ class ProductController extends Controller
     {
         $request->validate([
              'media.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+             'min_order_qty' => 'nullable|integer|min:1',
+             'max_order_qty' => 'nullable|integer|min:1|gte:min_order_qty',
         ]);
 
         $product = Product::findOrFail($id);
@@ -160,7 +165,8 @@ class ProductController extends Controller
         $product->update($request->only([
             'title', 'description', 'status', 'type', 'vendor', 
             'collection_id', 'gender', 'olfactory_family', 
-            'intensity', 'oil_concentration', 'notes_top', 'notes_heart', 'notes_base'
+            'intensity', 'oil_concentration', 'notes_top', 'notes_heart', 'notes_base',
+            'min_order_qty', 'max_order_qty'
         ]));
 
         // Sync Variants

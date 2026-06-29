@@ -4,15 +4,22 @@
 
 @section('content')
 <div class="container-fluid" style="max-width: 1200px; padding-bottom: 2.5rem;">
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <a href="{{ route('admin.products') }}" class="text-secondary text-decoration-none">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <h1 class="h3 fw-bold text-dark mb-0">Add product</h1>
-    </div>
-
-    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="row g-4">
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ route('admin.products') }}" class="text-secondary text-decoration-none">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="h3 fw-bold text-dark mb-0">Add product</h1>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="{{ route('admin.products') }}" class="btn btn-white border shadow-sm text-secondary">Discard</a>
+                <button type="submit" class="btn btn-success shadow-sm">Save</button>
+            </div>
+        </div>
+
+        <div class="row g-4">
         <!-- Left Column -->
         <div class="col-12 col-lg-8">
             
@@ -307,6 +314,24 @@
                 </div>
             </div>
 
+            <!-- Purchase Quantity Limits -->
+            <div class="card border shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h2 class="h6 fw-semibold text-secondary mb-3">Purchase Limits (Wholesale/Promo)</h2>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="form-label fw-medium text-secondary small mb-1">Min Order Qty</label>
+                            <input type="number" name="min_order_qty" class="form-control shadow-sm" placeholder="e.g. 1" min="1">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-medium text-secondary small mb-1">Max Order Qty</label>
+                            <input type="number" name="max_order_qty" class="form-control shadow-sm" placeholder="e.g. 10" min="1">
+                        </div>
+                    </div>
+                    <div class="form-text text-muted small mt-2">Leave blank to disable order constraints on this product.</div>
+                </div>
+            </div>
+
 
 
         </div>
@@ -315,6 +340,7 @@
             <button type="button" class="btn btn-white border shadow-sm text-secondary">Discard</button>
             <button type="submit" class="btn btn-success shadow-sm">Save</button>
         </div>
+        </div> <!-- Close row g-4 -->
     </form>
 </div>
 <style>

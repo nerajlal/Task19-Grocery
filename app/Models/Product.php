@@ -25,6 +25,8 @@ class Product extends Model
         'notes_top',
         'notes_heart',
         'notes_base',
+        'min_order_qty',
+        'max_order_qty',
         'tenant_id',
     ];
 

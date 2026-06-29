@@ -340,6 +340,40 @@ class CartController extends Controller
         if(!$product) {
             return response()->json(['success' => false, 'message' => 'Product not found!'], 404);
         }
+
+        // Check purchase quantity limits
+        $cartKey = $id . ($size ? '-' . $size : '');
+        $currentQty = 0;
+        if (Auth::check()) {
+            $cartItem = Cart::where('user_id', Auth::id())
+                ->where('product_id', $id)
+                ->where('size', $size)
+                ->first();
+            if ($cartItem) {
+                $currentQty = $cartItem->quantity;
+            }
+        } else {
+            $cart = session()->get('cart', []);
+            if (isset($cart[$cartKey])) {
+                $currentQty = $cart[$cartKey]['quantity'];
+            }
+        }
+
+        $targetQty = $currentQty + $quantity;
+
+        if ($product->min_order_qty && $targetQty < $product->min_order_qty) {
+            return response()->json([
+                'success' => false,
+                'message' => "Minimum order quantity for {$product->title} is {$product->min_order_qty}."
+            ], 400);
+        }
+
+        if ($product->max_order_qty && $targetQty > $product->max_order_qty) {
+            return response()->json([
+                'success' => false,
+                'message' => "Maximum order quantity for {$product->title} is {$product->max_order_qty}."
+            ], 400);
+        }
         
         // Price Logic
         $price = $product->starting_price;
@@ -414,6 +448,31 @@ class CartController extends Controller
     public function update(Request $request)
     {
         if($request->id && $request->quantity) {
+            // Check purchase quantity limits
+            $productId = null;
+            if (!str_starts_with($request->id, 'bundle-')) {
+                $parts = explode('-', $request->id);
+                $productId = $parts[0];
+            }
+
+            if ($productId) {
+                $product = Product::find($productId);
+                if ($product) {
+                    if ($product->min_order_qty && $request->quantity < $product->min_order_qty) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Minimum order quantity for {$product->title} is {$product->min_order_qty}."
+                        ], 400);
+                    }
+                    if ($product->max_order_qty && $request->quantity > $product->max_order_qty) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Maximum order quantity for {$product->title} is {$product->max_order_qty}."
+                        ], 400);
+                    }
+                }
+            }
+
             $cart = [];
              if (Auth::check()) {
                 $cartItem = null;
