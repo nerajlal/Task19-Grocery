@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['variants', 'images']);
+        $query = Product::with(['variants', 'images', 'bundles']);
 
         // Search
         if ($request->filled('search')) {
@@ -82,7 +82,8 @@ class ProductController extends Controller
         $collections = Collection::all();
         $families = Attribute::where('type', 'family')->get();
         $notes = Attribute::where('type', 'note')->get();
-        return view('admin.products.create', compact('collections', 'families', 'notes'));
+        $packDeals = collect();
+        return view('admin.products.create', compact('collections', 'families', 'notes', 'packDeals'));
     }
 
     public function store(Request $request)
@@ -104,14 +105,60 @@ class ProductController extends Controller
         ]));
 
         // Handle Variants
-        if ($request->has('variant_data')) {
-            foreach ($request->variant_data as $size => $data) {
-                if (isset($data['enabled'])) {
+        if ($request->has('variants')) {
+            foreach ($request->variants as $vData) {
+                if (!empty($vData['size'])) {
                     $product->variants()->create([
-                        'size' => $size,
-                        'stock' => $data['stock'] ?? 0,
-                        'price' => $data['price'],
-                        'compare_at_price' => $data['compare_at_price'],
+                        'size' => $vData['size'],
+                        'stock' => $vData['stock'] ?? 0,
+                        'price' => $vData['price'],
+                        'compare_at_price' => $vData['compare_at_price'] ?? null,
+                        'sku' => Str::upper(Str::slug($product->title)) . '-' . Str::slug($vData['size']) . '-' . rand(100, 999),
+                    ]);
+                }
+            }
+        }
+
+        // Sync/Create Variants
+        $variantMap = [];
+        foreach ($product->variants as $variant) {
+            $variantMap[$variant->size] = $variant->id;
+        }
+
+        // Handle Pack Deals
+        if ($request->has('packs')) {
+            foreach ($request->packs as $pData) {
+                if (!empty($pData['quantity']) && !empty($pData['pack_price'])) {
+                    $variantId = null;
+                    // Resolve variant ID from size string
+                    $variantSize = $pData['variant_size'] ?? null;
+                    if ($variantSize) {
+                        $variantId = $variantMap[$variantSize] ?? null;
+                    }
+                    
+                    if (!$variantId) continue;
+                    
+                    $variant = ProductVariant::find($variantId);
+                    if (!$variant) continue;
+                    
+                    $originalTotal = $variant->price * $pData['quantity'];
+                    $discountValue = max(0, $originalTotal - $pData['pack_price']);
+                    
+                    $title = "Pack of {$pData['quantity']} - {$product->title} - {$variant->size}";
+                    
+                    $bundle = Bundle::create([
+                        'tenant_id' => $product->tenant_id,
+                        'title' => $title,
+                        'slug' => Str::slug($title) . '-' . $product->id . '-' . rand(100, 999),
+                        'type' => 'pack',
+                        'discount_type' => 'fixed',
+                        'discount_value' => $discountValue,
+                        'status' => 'active',
+                    ]);
+                    
+                    $bundle->products()->attach($product->id, [
+                        'quantity' => $pData['quantity'],
+                        'product_variant_id' => $variantId
                     ]);
                 }
             }
@@ -137,10 +184,12 @@ class ProductController extends Controller
         $product = Product::with(['variants', 'images' => function($query) {
             $query->orderBy('order', 'asc');
         }])->findOrFail($id);
+        
+        $packDeals = $product->bundles()->where('type', 'pack')->get();
         $collections = Collection::all();
         $families = Attribute::where('type', 'family')->get();
         $notes = Attribute::where('type', 'note')->get();
-        return view('admin.products.edit', compact('product', 'collections', 'families', 'notes'));
+        return view('admin.products.edit', compact('product', 'collections', 'families', 'notes', 'packDeals'));
     }
 
     public function update(Request $request, $id)
@@ -170,23 +219,118 @@ class ProductController extends Controller
         ]));
 
         // Sync Variants
-        if ($request->has('variant_data')) {
+        if ($request->has('variants')) {
             $currentVariantIds = [];
-            foreach ($request->variant_data as $size => $data) {
-                if (isset($data['enabled'])) {
-                    $variant = $product->variants()->updateOrCreate(
-                        ['size' => $size],
-                        [
-                            'stock' => $data['stock'] ?? 0,
-                            'price' => $data['price'],
-                            'compare_at_price' => $data['compare_at_price'],
-                        ]
-                    );
+            foreach ($request->variants as $vData) {
+                if (!empty($vData['size'])) {
+                    $variant = null;
+                    if (!empty($vData['id'])) {
+                        $variant = $product->variants()->find($vData['id']);
+                    }
+                    
+                    if ($variant) {
+                        $variant->update([
+                            'size' => $vData['size'],
+                            'stock' => $vData['stock'] ?? 0,
+                            'price' => $vData['price'],
+                            'compare_at_price' => $vData['compare_at_price'] ?? null,
+                        ]);
+                    } else {
+                        $variant = $product->variants()->create([
+                            'size' => $vData['size'],
+                            'stock' => $vData['stock'] ?? 0,
+                            'price' => $vData['price'],
+                            'compare_at_price' => $vData['compare_at_price'] ?? null,
+                            'sku' => Str::upper(Str::slug($product->title)) . '-' . Str::slug($vData['size']) . '-' . rand(100, 999),
+                        ]);
+                    }
                     $currentVariantIds[] = $variant->id;
                 }
             }
-            // Remove variants that were unchecked
+            // Remove variants that were removed in the UI
             $product->variants()->whereNotIn('id', $currentVariantIds)->delete();
+        } else {
+            $product->variants()->delete();
+        }
+
+        // Sync/Create Variants
+        $variantMap = [];
+        foreach ($product->variants as $variant) {
+            $variantMap[$variant->size] = $variant->id;
+        }
+
+        // Handle Pack Deals
+        if ($request->has('packs')) {
+            $currentPackIds = [];
+            foreach ($request->packs as $pData) {
+                if (!empty($pData['quantity']) && !empty($pData['pack_price'])) {
+                    $variantId = $pData['variant_id'] ?? null;
+                    
+                    // Resolve variant ID from size string if passed from creation UI
+                    $variantSize = $pData['variant_size'] ?? null;
+                    if (empty($variantId) && $variantSize) {
+                        $variantId = $variantMap[$variantSize] ?? null;
+                    }
+                    
+                    if (!$variantId) continue;
+                    
+                    $variant = ProductVariant::find($variantId);
+                    if (!$variant) continue;
+                    
+                    $originalTotal = $variant->price * $pData['quantity'];
+                    $discountValue = max(0, $originalTotal - $pData['pack_price']);
+                    
+                    $title = "Pack of {$pData['quantity']} - {$product->title} - {$variant->size}";
+                    
+                    $bundle = null;
+                    if (!empty($pData['id'])) {
+                        $bundle = Bundle::withoutGlobalScopes()->find($pData['id']);
+                    }
+                    
+                    if ($bundle) {
+                        $bundle->update([
+                            'title' => $title,
+                            'slug' => Str::slug($title) . '-' . $product->id . '-' . rand(100, 999),
+                            'discount_value' => $discountValue,
+                        ]);
+                        // Update pivot
+                        $bundle->products()->updateExistingPivot($product->id, [
+                            'quantity' => $pData['quantity'],
+                            'product_variant_id' => $variantId
+                        ]);
+                    } else {
+                        $bundle = Bundle::create([
+                            'tenant_id' => $product->tenant_id,
+                            'title' => $title,
+                            'slug' => Str::slug($title) . '-' . $product->id . '-' . rand(100, 999),
+                            'type' => 'pack',
+                            'discount_type' => 'fixed',
+                            'discount_value' => $discountValue,
+                            'status' => 'active',
+                        ]);
+                        $bundle->products()->attach($product->id, [
+                            'quantity' => $pData['quantity'],
+                            'product_variant_id' => $variantId
+                        ]);
+                    }
+                    $currentPackIds[] = $bundle->id;
+                }
+            }
+            
+            // Delete packs that were removed
+            $allPacks = $product->bundles()->where('type', 'pack')->get();
+            foreach ($allPacks as $p) {
+                if (!in_array($p->id, $currentPackIds)) {
+                    $p->products()->detach();
+                    $p->delete();
+                }
+            }
+        } else {
+            $allPacks = $product->bundles()->where('type', 'pack')->get();
+            foreach ($allPacks as $p) {
+                $p->products()->detach();
+                $p->delete();
+            }
         }
 
         // Handle Image Deletion

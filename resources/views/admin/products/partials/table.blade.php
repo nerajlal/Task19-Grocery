@@ -10,7 +10,16 @@
                     <i class="fas fa-image text-secondary opacity-50"></i>
                 @endif
             </div>
-            <span class="fw-medium text-dark hover-success mb-0">{{ $product->title }}</span>
+            <div class="d-flex flex-column gap-1">
+                <span class="fw-medium text-dark hover-success mb-0">{{ $product->title }}</span>
+                @if($product->bundles->where('type', 'pack')->isNotEmpty())
+                    <div>
+                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill fw-medium" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">
+                            <i class="fas fa-layer-group me-1"></i> Pack Offer
+                        </span>
+                    </div>
+                @endif
+            </div>
         </div>
     </td>
     <td class="px-3 py-3">

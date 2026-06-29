@@ -198,23 +198,23 @@
                     <div id="variants-container" class="vstack gap-3">
                         @foreach($product->variants as $variant)
                         <div class="border rounded p-3 bg-light bg-opacity-50 variant-row">
+                            <input type="hidden" name="variants[{{ $loop->index }}][id]" value="{{ $variant->id }}">
                             <div class="row g-2 align-items-end">
                                 <div class="col-12 col-md-3">
                                     <label class="form-label extra-small fw-medium text-muted mb-1">Variant Name (e.g. 1kg, Pack of 10)</label>
-                                    <input type="text" class="form-control form-control-sm shadow-sm variant-size-input" value="{{ $variant->size }}" placeholder="e.g. 1kg" required oninput="updateRowInputNames(this.closest('.variant-row'))">
-                                    <input type="hidden" class="variant-enabled-input" name="variant_data[{{ $variant->size }}][enabled]" value="1">
+                                    <input type="text" class="form-control form-control-sm shadow-sm variant-size-input" name="variants[{{ $loop->index }}][size]" value="{{ $variant->size }}" placeholder="e.g. 1kg" required>
                                 </div>
                                 <div class="col-4 col-md-3">
                                     <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
-                                    <input type="number" class="form-control form-control-sm shadow-sm variant-stock-input" name="variant_data[{{ $variant->size }}][stock]" value="{{ $variant->stock }}" placeholder="0">
+                                    <input type="number" class="form-control form-control-sm shadow-sm variant-stock-input" name="variants[{{ $loop->index }}][stock]" value="{{ $variant->stock }}" placeholder="0">
                                 </div>
                                 <div class="col-4 col-md-2">
                                     <label class="form-label extra-small fw-medium text-muted mb-1">Price (₹)</label>
-                                    <input type="text" class="form-control form-control-sm shadow-sm variant-price-input" name="variant_data[{{ $variant->size }}][price]" value="{{ $variant->price }}" placeholder="0.00" required>
+                                    <input type="text" class="form-control form-control-sm shadow-sm variant-price-input" name="variants[{{ $loop->index }}][price]" value="{{ $variant->price }}" placeholder="0.00" required>
                                 </div>
                                 <div class="col-4 col-md-2">
                                     <label class="form-label extra-small fw-medium text-muted mb-1">Compare Price (₹)</label>
-                                    <input type="text" class="form-control form-control-sm shadow-sm variant-compare-input" name="variant_data[{{ $variant->size }}][compare_at_price]" value="{{ $variant->compare_at_price }}" placeholder="0.00">
+                                    <input type="text" class="form-control form-control-sm shadow-sm variant-compare-input" name="variants[{{ $loop->index }}][compare_at_price]" value="{{ $variant->compare_at_price }}" placeholder="0.00">
                                 </div>
                                 <div class="col-12 col-md-2 text-end">
                                     <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removeVariantRow(this)">Remove</button>
@@ -226,45 +226,186 @@
                 </div>
             </div>
 
+            <!-- Volume Deals (Pack Of) Section -->
+            <div class="card border shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="h6 fw-semibold text-secondary mb-0">Volume Deals ("Pack Of" Discounts)</h2>
+                        <button type="button" class="btn btn-outline-success btn-sm fw-medium" onclick="addPackRow()">+ Add Pack Deal</button>
+                    </div>
+                    <div id="packs-container" class="vstack gap-3">
+                        @foreach($packDeals as $pIndex => $pack)
+                        @php
+                            $variantId = $pack->products->first()->pivot->product_variant_id;
+                            $qty = $pack->products->first()->pivot->quantity;
+                            $packPrice = $pack->total_price;
+                            $currentVariant = $product->variants->firstWhere('id', $variantId);
+                            $currentSize = $currentVariant ? $currentVariant->size : '';
+                        @endphp
+                        <div class="border rounded p-3 bg-light bg-opacity-50 pack-row">
+                            <input type="hidden" name="packs[{{ $pIndex }}][id]" value="{{ $pack->id }}">
+                            <input type="hidden" class="pack-variant-size-hidden" name="packs[{{ $pIndex }}][variant_size]" value="{{ $currentSize }}">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label extra-small fw-medium text-muted mb-1">Select Variant</label>
+                                    <select class="form-select form-select-sm shadow-sm pack-variant-select" name="packs[{{ $pIndex }}][variant_id]" data-temp-size="{{ $currentSize }}" required onchange="const activeOption = this.options[this.selectedIndex]; this.closest('.pack-row').querySelector('.pack-variant-size-hidden').value = activeOption ? (activeOption.getAttribute('data-size') || '') : '';">
+                                        @foreach($product->variants as $v)
+                                            <option value="{{ $v->id }}" @selected($v->id == $variantId) data-size="{{ $v->size }}">{{ $v->size }} (₹{{ $v->price }})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <label class="form-label extra-small fw-medium text-muted mb-1">Quantity in Pack</label>
+                                    <input type="number" class="form-control form-control-sm shadow-sm pack-qty-input" name="packs[{{ $pIndex }}][quantity]" value="{{ $qty }}" min="2" placeholder="e.g. 6" required>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <label class="form-label extra-small fw-medium text-muted mb-1">Special Pack Price (₹)</label>
+                                    <input type="text" class="form-control form-control-sm shadow-sm pack-price-input" name="packs[{{ $pIndex }}][pack_price]" value="{{ $packPrice }}" placeholder="0.00" required>
+                                </div>
+                                <div class="col-12 col-md-2 text-end">
+                                    <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removePackRow(this)">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
             <script>
-                function updateRowInputNames(rowElement) {
-                    const sizeInput = rowElement.querySelector('.variant-size-input');
-                    const sizeVal = sizeInput.value.trim();
-                    const cleanSize = sizeVal ? sizeVal : 'unnamed_' + Math.random().toString(36).substring(7);
+                function reindexVariants() {
+                    const rows = document.querySelectorAll('.variant-row');
+                    rows.forEach((row, index) => {
+                        const idInput = row.querySelector('input[type="hidden"]');
+                        if (idInput) {
+                            idInput.name = `variants[${index}][id]`;
+                        }
+                        
+                        const sizeInput = row.querySelector('.variant-size-input');
+                        if (sizeInput) {
+                            sizeInput.name = `variants[${index}][size]`;
+                        }
+                        
+                        const stockInput = row.querySelector('.variant-stock-input');
+                        if (stockInput) {
+                            stockInput.name = `variants[${index}][stock]`;
+                        }
+                        
+                        const priceInput = row.querySelector('.variant-price-input');
+                        if (priceInput) {
+                            priceInput.name = `variants[${index}][price]`;
+                        }
+                        
+                        const compareInput = row.querySelector('.variant-compare-input');
+                        if (compareInput) {
+                            compareInput.name = `variants[${index}][compare_at_price]`;
+                        }
+                    });
+                    updatePackVariantOptions();
+                }
 
-                    const enabledInput = rowElement.querySelector('.variant-enabled-input');
-                    const stockInput = rowElement.querySelector('.variant-stock-input');
-                    const priceInput = rowElement.querySelector('.variant-price-input');
-                    const compareInput = rowElement.querySelector('.variant-compare-input');
+                function reindexPacks() {
+                    const rows = document.querySelectorAll('.pack-row');
+                    rows.forEach((row, index) => {
+                        const idInput = row.querySelector('input[type="hidden"]');
+                        if (idInput) {
+                            idInput.name = `packs[${index}][id]`;
+                        }
+                        
+                        const select = row.querySelector('.pack-variant-select');
+                        if (select) {
+                            select.name = `packs[${index}][variant_id]`;
+                        }
+                        
+                        const sizeHidden = row.querySelector('.pack-variant-size-hidden');
+                        if (sizeHidden) {
+                            sizeHidden.name = `packs[${index}][variant_size]`;
+                        }
+                        
+                        const qtyInput = row.querySelector('.pack-qty-input');
+                        if (qtyInput) {
+                            qtyInput.name = `packs[${index}][quantity]`;
+                        }
+                        
+                        const priceInput = row.querySelector('.pack-price-input');
+                        if (priceInput) {
+                            priceInput.name = `packs[${index}][pack_price]`;
+                        }
+                    });
+                }
 
-                    enabledInput.name = `variant_data[${cleanSize}][enabled]`;
-                    stockInput.name = `variant_data[${cleanSize}][stock]`;
-                    priceInput.name = `variant_data[${cleanSize}][price]`;
-                    compareInput.name = `variant_data[${cleanSize}][compare_at_price]`;
+                function updatePackVariantOptions() {
+                    const variants = [];
+                    document.querySelectorAll('.variant-row').forEach(row => {
+                        const idInput = row.querySelector('input[type="hidden"]');
+                        const idVal = idInput ? idInput.value : '';
+                        const sizeInput = row.querySelector('.variant-size-input');
+                        const sizeVal = sizeInput ? sizeInput.value.trim() : '';
+                        const priceInput = row.querySelector('.variant-price-input');
+                        const priceVal = priceInput ? priceInput.value.trim() : '';
+                        
+                        if (sizeVal) {
+                            variants.push({
+                                id: idVal,
+                                size: sizeVal,
+                                price: priceVal ? '₹' + priceVal : ''
+                            });
+                        }
+                    });
+
+                    document.querySelectorAll('.pack-row').forEach(row => {
+                        const select = row.querySelector('.pack-variant-select');
+                        const sizeHidden = row.querySelector('.pack-variant-size-hidden');
+                        
+                        const selectedVal = select.value;
+                        const selectedSize = select.options[select.selectedIndex]?.getAttribute('data-size') || select.getAttribute('data-temp-size');
+                        
+                        select.innerHTML = '<option value="">Choose variant...</option>';
+                        variants.forEach(v => {
+                            const option = document.createElement('option');
+                            option.value = v.id;
+                            option.setAttribute('data-size', v.size);
+                            option.text = `${v.size} (${v.price})`;
+                            
+                            if (v.id && selectedVal === v.id) {
+                                option.selected = true;
+                            } else if (v.size === selectedSize) {
+                                option.selected = true;
+                            }
+                            select.appendChild(option);
+                        });
+
+                        // Set the hidden size input
+                        if (sizeHidden) {
+                            const activeOption = select.options[select.selectedIndex];
+                            sizeHidden.value = activeOption ? (activeOption.getAttribute('data-size') || '') : '';
+                        }
+                    });
                 }
 
                 function addVariantRow() {
                     const container = document.getElementById('variants-container');
+                    const index = container.querySelectorAll('.variant-row').length;
                     const row = document.createElement('div');
                     row.className = 'border rounded p-3 bg-light bg-opacity-50 variant-row';
                     row.innerHTML = `
+                        <input type="hidden" name="variants[${index}][id]" value="">
                         <div class="row g-2 align-items-end">
                             <div class="col-12 col-md-3">
                                 <label class="form-label extra-small fw-medium text-muted mb-1">Variant Name (e.g. 1kg, Pack of 10)</label>
-                                <input type="text" class="form-control form-control-sm shadow-sm variant-size-input" placeholder="e.g. 1kg" required oninput="updateRowInputNames(this.closest('.variant-row'))">
-                                <input type="hidden" class="variant-enabled-input" value="1">
+                                <input type="text" class="form-control form-control-sm shadow-sm variant-size-input" name="variants[${index}][size]" placeholder="e.g. 1kg" required>
                             </div>
                             <div class="col-4 col-md-3">
                                 <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
-                                <input type="number" class="form-control form-control-sm shadow-sm variant-stock-input" placeholder="0">
+                                <input type="number" class="form-control form-control-sm shadow-sm variant-stock-input" name="variants[${index}][stock]" placeholder="0">
                             </div>
                             <div class="col-4 col-md-2">
                                 <label class="form-label extra-small fw-medium text-muted mb-1">Price (₹)</label>
-                                <input type="text" class="form-control form-control-sm shadow-sm variant-price-input" placeholder="0.00" required>
+                                <input type="text" class="form-control form-control-sm shadow-sm variant-price-input" name="variants[${index}][price]" placeholder="0.00" required>
                             </div>
                             <div class="col-4 col-md-2">
                                 <label class="form-label extra-small fw-medium text-muted mb-1">Compare Price (₹)</label>
-                                <input type="text" class="form-control form-control-sm shadow-sm variant-compare-input" placeholder="0.00">
+                                <input type="text" class="form-control form-control-sm shadow-sm variant-compare-input" name="variants[${index}][compare_at_price]" placeholder="0.00">
                             </div>
                             <div class="col-12 col-md-2 text-end">
                                 <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removeVariantRow(this)">Remove</button>
@@ -272,7 +413,7 @@
                         </div>
                     `;
                     container.appendChild(row);
-                    updateRowInputNames(row);
+                    reindexVariants();
                 }
 
                 function removeVariantRow(button) {
@@ -280,18 +421,67 @@
                     const container = document.getElementById('variants-container');
                     if (container.children.length > 1) {
                         row.remove();
+                        reindexVariants();
                     } else {
                         alert('You must have at least one variant.');
                     }
+                }
+
+                function addPackRow() {
+                    const container = document.getElementById('packs-container');
+                    const index = container.querySelectorAll('.pack-row').length;
+                    const row = document.createElement('div');
+                    row.className = 'border rounded p-3 bg-light bg-opacity-50 pack-row';
+                    row.innerHTML = `
+                        <input type="hidden" name="packs[${index}][id]" value="">
+                        <input type="hidden" class="pack-variant-size-hidden" name="packs[${index}][variant_size]" value="">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-12 col-md-4">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Select Variant</label>
+                                <select class="form-select form-select-sm shadow-sm pack-variant-select" name="packs[${index}][variant_id]" required onchange="const activeOption = this.options[this.selectedIndex]; this.closest('.pack-row').querySelector('.pack-variant-size-hidden').value = activeOption ? (activeOption.getAttribute('data-size') || '') : '';">
+                                    <option value="">Choose variant...</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Quantity in Pack</label>
+                                <input type="number" class="form-control form-control-sm shadow-sm pack-qty-input" name="packs[${index}][quantity]" min="2" placeholder="e.g. 6" required>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Special Pack Price (₹)</label>
+                                <input type="text" class="form-control form-control-sm shadow-sm pack-price-input" name="packs[${index}][pack_price]" placeholder="0.00" required>
+                            </div>
+                            <div class="col-12 col-md-2 text-end">
+                                <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removePackRow(this)">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                    updatePackVariantOptions();
+                    reindexPacks();
+                }
+
+                function removePackRow(button) {
+                    const row = button.closest('.pack-row');
+                    row.remove();
+                    reindexPacks();
                 }
 
                 document.addEventListener('DOMContentLoaded', function() {
                     const container = document.getElementById('variants-container');
                     if (container && container.children.length === 0) {
                         addVariantRow();
+                    } else {
+                        updatePackVariantOptions();
                     }
+
+                    // Add live updates when typing variant sizes/prices
+                    container.addEventListener('input', function(e) {
+                        if (e.target.classList.contains('variant-size-input') || e.target.classList.contains('variant-price-input')) {
+                            updatePackVariantOptions();
+                        }
+                    });
                 });
-            </script>          </div>
+            </script>
 
         </div>
 
