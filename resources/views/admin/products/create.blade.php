@@ -21,7 +21,7 @@
                 <div class="card-body p-4">
                     <div class="mb-3">
                         <label class="form-label fw-medium text-secondary small mb-1">Title</label>
-                        <input type="text" name="title" class="form-control shadow-sm" placeholder="Jasmine Perfume" required>
+                        <input type="text" name="title" class="form-control shadow-sm" placeholder="e.g. Fresh Organic Apples" required>
                     </div>
                     <div>
                         <label class="form-label fw-medium text-secondary small mb-1">Description</label>
@@ -189,125 +189,85 @@
                 }
             </script>
             
-            <!-- Variants Section (Unchanged) -->
+            <!-- Variants Section -->
              <div class="card border shadow-sm mb-4">
                 <div class="card-body p-4">
-                    <h2 class="h6 fw-semibold text-secondary mb-3">Product Variants (Sizes)</h2>
-                    <div class="vstack gap-3">
-                        <!-- 30ml -->
-                        <div class="border rounded p-3 bg-light bg-opacity-50">
-                            <div class="form-check mb-3 d-flex align-items-center gap-2 ps-0">
-                                <input type="checkbox" name="variant_data[30ml][enabled]" value="1" id="var_30ml" class="form-check-input mt-0">
-                                <label for="var_30ml" class="form-check-label small fw-bold text-dark cursor-pointer flex-grow-1">30ml</label>
-                            </div>
-                            <div class="row g-2 ps-4">
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
-                                    <input type="number" name="variant_data[30ml][stock]" class="form-control form-control-sm shadow-sm" placeholder="0">
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Price</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[30ml][price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Compare At</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[30ml][compare_at_price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 50ml -->
-                        <div class="border rounded p-3 bg-light bg-opacity-50">
-                            <div class="form-check mb-3 d-flex align-items-center gap-2 ps-0">
-                                <input type="checkbox" name="variant_data[50ml][enabled]" value="1" id="var_50ml" checked class="form-check-input mt-0">
-                                <label for="var_50ml" class="form-check-label small fw-bold text-dark cursor-pointer flex-grow-1">50ml</label>
-                            </div>
-                             <div class="row g-2 ps-4">
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
-                                    <input type="number" name="variant_data[50ml][stock]" class="form-control form-control-sm shadow-sm" placeholder="0">
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Price</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[50ml][price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Compare At</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[50ml][compare_at_price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 100ml -->
-                        <div class="border rounded p-3 bg-light bg-opacity-50">
-                            <div class="form-check mb-3 d-flex align-items-center gap-2 ps-0">
-                                <input type="checkbox" name="variant_data[100ml][enabled]" value="1" id="var_100ml" class="form-check-input mt-0">
-                                <label for="var_100ml" class="form-check-label small fw-bold text-dark cursor-pointer flex-grow-1">100ml</label>
-                            </div>
-                            <div class="row g-2 ps-4">
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
-                                    <input type="number" name="variant_data[100ml][stock]" class="form-control form-control-sm shadow-sm" placeholder="0">
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Price</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[100ml][price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Compare At</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[100ml][compare_at_price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sample/Tester -->
-                        <div class="border rounded p-3 bg-light bg-opacity-50">
-                            <div class="form-check mb-3 d-flex align-items-center gap-2 ps-0">
-                                <input type="checkbox" name="variant_data[tester][enabled]" value="1" id="var_tester" class="form-check-input mt-0">
-                                <label for="var_tester" class="form-check-label small fw-bold text-dark cursor-pointer flex-grow-1">Sample / Tester (2ml)</label>
-                            </div>
-                            <div class="row g-2 ps-4">
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
-                                    <input type="number" name="variant_data[tester][stock]" class="form-control form-control-sm shadow-sm" placeholder="0">
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Price</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[tester][price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label extra-small fw-medium text-muted mb-1">Compare At</label>
-                                    <div class="input-group input-group-sm shadow-sm">
-                                        <span class="input-group-text bg-white text-muted border-end-0">₹</span>
-                                        <input type="text" name="variant_data[tester][compare_at_price]" class="form-control border-start-0 ps-1" placeholder="0.00">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="h6 fw-semibold text-secondary mb-0">Product Variants (Wholesale & Retail)</h2>
+                        <button type="button" class="btn btn-outline-success btn-sm fw-medium" onclick="addVariantRow()">+ Add Variant</button>
+                    </div>
+                    <div id="variants-container" class="vstack gap-3">
+                        <!-- Dynamic Variant Rows Will Be Appended Here -->
                     </div>
                 </div>
             </div>
+
+            <script>
+                function updateRowInputNames(rowElement) {
+                    const sizeInput = rowElement.querySelector('.variant-size-input');
+                    const sizeVal = sizeInput.value.trim();
+                    const cleanSize = sizeVal ? sizeVal : 'unnamed_' + Math.random().toString(36).substring(7);
+
+                    const enabledInput = rowElement.querySelector('.variant-enabled-input');
+                    const stockInput = rowElement.querySelector('.variant-stock-input');
+                    const priceInput = rowElement.querySelector('.variant-price-input');
+                    const compareInput = rowElement.querySelector('.variant-compare-input');
+
+                    enabledInput.name = `variant_data[${cleanSize}][enabled]`;
+                    stockInput.name = `variant_data[${cleanSize}][stock]`;
+                    priceInput.name = `variant_data[${cleanSize}][price]`;
+                    compareInput.name = `variant_data[${cleanSize}][compare_at_price]`;
+                }
+
+                function addVariantRow() {
+                    const container = document.getElementById('variants-container');
+                    const row = document.createElement('div');
+                    row.className = 'border rounded p-3 bg-light bg-opacity-50 variant-row';
+                    row.innerHTML = `
+                        <div class="row g-2 align-items-end">
+                            <div class="col-12 col-md-3">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Variant Name (e.g. 1kg, Pack of 10)</label>
+                                <input type="text" class="form-control form-control-sm shadow-sm variant-size-input" placeholder="e.g. 1kg" required oninput="updateRowInputNames(this.closest('.variant-row'))">
+                                <input type="hidden" class="variant-enabled-input" value="1">
+                            </div>
+                            <div class="col-4 col-md-3">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Stock</label>
+                                <input type="number" class="form-control form-control-sm shadow-sm variant-stock-input" placeholder="0">
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Price (₹)</label>
+                                <input type="text" class="form-control form-control-sm shadow-sm variant-price-input" placeholder="0.00" required>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <label class="form-label extra-small fw-medium text-muted mb-1">Compare Price (₹)</label>
+                                <input type="text" class="form-control form-control-sm shadow-sm variant-compare-input" placeholder="0.00">
+                            </div>
+                            <div class="col-12 col-md-2 text-end">
+                                <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removeVariantRow(this)">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                    updateRowInputNames(row);
+                }
+
+                function removeVariantRow(button) {
+                    const row = button.closest('.variant-row');
+                    const container = document.getElementById('variants-container');
+                    if (container.children.length > 1) {
+                        row.remove();
+                    } else {
+                        alert('You must have at least one variant.');
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const container = document.getElementById('variants-container');
+                    if (container && container.children.length === 0) {
+                        addVariantRow();
+                    }
+                });
+            </script>
 
         </div>
 
@@ -332,7 +292,7 @@
                     <div class="vstack gap-3">
                         <div>
                             <label class="form-label fw-medium text-secondary small mb-1">Product type</label>
-                            <input type="text" name="type" class="form-control shadow-sm" placeholder="e.g. Perfume" value="Perfume">
+                            <input type="text" name="type" class="form-control shadow-sm" placeholder="e.g. Fruits, Beverages" value="Grocery">
                         </div>
                         <div>
                             <label class="form-label fw-medium text-secondary small mb-1">Collections</label>
@@ -343,75 +303,11 @@
                                 @endforeach
                             </select>
                         </div>
-                         <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Gender</label>
-                            <select name="gender" class="form-select shadow-sm">
-                                <option value="">Select gender</option>
-                                <option value="him">For Him</option>
-                                <option value="her">For Her</option>
-                                <option value="unisex">Unisex</option>
-                            </select>
-                        </div>
                 </div>
                 </div>
             </div>
 
-            <!-- Fragrance Profile (New Location) -->
-            <div class="card border shadow-sm mb-4">
-                <div class="card-body p-4">
-                    <h2 class="h6 fw-semibold text-secondary mb-3">Fragrance Profile</h2>
-                    <div class="vstack gap-3">
-                        <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Olfactory Family</label>
-                            <select name="olfactory_family" class="form-select shadow-sm">
-                                <option value="">Select a family</option>
-                                @foreach($families as $family)
-                                    <option value="{{ $family->name }}">{{ $family->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Intensity</label>
-                            <select name="intensity" class="form-select shadow-sm">
-                                <option value="">Select intensity</option>
-                                <option value="light">Light</option>
-                                <option value="moderate">Moderate</option>
-                                <option value="long-lasting">Long Lasting</option>
-                                <option value="intense">Intense</option>
-                                <option value="beast-mode">Beast Mode</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Oil Concentration</label>
-                            <select name="oil_concentration" class="form-select shadow-sm">
-                                <option value="">Select concentration</option>
-                                <option value="Extrait De Parfum">Extrait De Parfum</option>
-                                <option value="Eau De Parfum">Eau De Parfum</option>
-                                <option value="Eau De Toilette">Eau De Toilette</option>
-                                <option value="Eau De Cologne">Eau De Cologne</option>
-                                <option value="Perfume Oil">Perfume Oil</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Top Notes</label>
-                            <input type="text" name="notes_top" class="form-control shadow-sm" placeholder="e.g. Lemon, Bergamot" list="notes_list">
-                        </div>
-                         <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Heart Notes</label>
-                            <input type="text" name="notes_heart" class="form-control shadow-sm" placeholder="e.g. Rose, Jasmine" list="notes_list">
-                        </div>
-                         <div>
-                            <label class="form-label fw-medium text-secondary small mb-1">Base Notes</label>
-                            <input type="text" name="notes_base" class="form-control shadow-sm" placeholder="e.g. Oud, Amber" list="notes_list">
-                        </div>
-                        <datalist id="notes_list">
-                            @foreach($notes as $note)
-                                <option value="{{ $note->name }}">
-                            @endforeach
-                        </datalist>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
         

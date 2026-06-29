@@ -23,12 +23,7 @@
                     <span>Collections</span>
                 </a>
             </li>
-             <li>
-                <a href="{{ route('admin.attributes') }}" class="sidebar-item {{ request()->routeIs('admin.attributes*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-sliders"></i>
-                    <span>Attributes</span>
-                </a>
-            </li>
+
             <li>
                 <a href="{{ route('admin.products') }}" class="sidebar-item {{ request()->routeIs('admin.products*') ? 'active' : '' }}">
                     <i class="fa-solid fa-tags"></i>
@@ -104,7 +99,7 @@
              <li>
                   <a href="{{ route('admin.settings.videos') }}" class="sidebar-item {{ request()->routeIs('admin.settings.videos*') ? 'active' : '' }}">
                      <i class="fa-solid fa-video"></i>
-                     <span>Fragrance Videos</span>
+                     <span>Showcase Videos</span>
                  </a>
              </li>
              @endif

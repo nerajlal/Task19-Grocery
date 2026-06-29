@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Attributes & Fragrance Notes')
+@section('title', 'Attributes & Product Tags')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="h3 mb-1 text-dark">Attributes & Fragrance Notes</h1>
-            <p class="text-muted small mb-0">Manage olfactory families and scent notes for your perfumes.</p>
+            <h1 class="h3 mb-1 text-dark">Attributes & Product Tags</h1>
+            <p class="text-muted small mb-0">Manage grocery departments, categories, and tags for your products.</p>
         </div>
     </div>
     
@@ -24,8 +24,8 @@
         <div class="col-12 col-lg-6">
             <div class="card border shadow-sm h-100">
                 <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
-                    <h2 class="h5 fw-bold text-dark mb-0">Olfactory Families</h2>
-                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill">{{ count($families) }} Families</span>
+                    <h2 class="h5 fw-bold text-dark mb-0">Grocery Departments / Families</h2>
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill">{{ count($families) }} Departments</span>
                 </div>
                 
                 <div class="card-body p-3">
@@ -35,7 +35,7 @@
                         <input type="hidden" name="type" value="family">
                         <div class="input-group">
                             <input type="color" name="color" class="form-control form-control-color" value="#563d7c" style="max-width: 50px;" title="Choose color">
-                            <input type="text" name="name" placeholder="Add new family (e.g. Woody)" class="form-control form-control-sm" required>
+                            <input type="text" name="name" placeholder="Add new department (e.g. Fruits & Vegetables)" class="form-control form-control-sm" required>
                             <button class="btn btn-dark btn-sm">Add</button>
                         </div>
                     </form>
@@ -52,7 +52,7 @@
                             @if(!isset($currentTenant) || $currentTenant->id == 1)
                             <div class="d-flex gap-2 opacity-0 group-hover-opacity transition-opacity text-nowrap item-actions">
                                 <button onclick="toggleEdit('family', {{ $family->id }})" class="btn btn-link btn-sm p-0 text-secondary hover-text-primary"><i class="fas fa-edit"></i></button>
-                                <form action="{{ route('admin.attributes.destroy', $family->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this family?');">
+                                <form action="{{ route('admin.attributes.destroy', $family->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this department?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link btn-sm p-0 text-secondary hover-text-danger"><i class="fas fa-trash"></i></button>
@@ -84,8 +84,8 @@
         <div class="col-12 col-lg-6">
             <div class="card border shadow-sm h-100">
                  <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
-                    <h2 class="h5 fw-bold text-dark mb-0">Perfume Notes</h2>
-                    <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill">{{ count($notes) }} Notes</span>
+                    <h2 class="h5 fw-bold text-dark mb-0">Product Tags & Attributes</h2>
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill">{{ count($notes) }} Tags</span>
                 </div>
 
                 <div class="card-body p-3">
@@ -94,7 +94,7 @@
                         @csrf
                         <input type="hidden" name="type" value="note">
                         <div class="input-group">
-                            <input type="text" name="name" placeholder="Add new note (e.g. Saffron)" class="form-control form-control-sm" required>
+                            <input type="text" name="name" placeholder="Add new tag (e.g. Organic, Fresh, Vegan)" class="form-control form-control-sm" required>
                             <button class="btn btn-success btn-sm">Add</button>
                         </div>
                     </form>
@@ -102,7 +102,7 @@
                     <!-- List with Search -->
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text bg-white border-end-0 text-muted"><i class="fas fa-search"></i></span>
-                        <input type="text" id="noteSearch" onkeyup="filterNotes()" placeholder="Search notes..." class="form-control border-start-0 shadow-none">
+                        <input type="text" id="noteSearch" onkeyup="filterNotes()" placeholder="Search tags..." class="form-control border-start-0 shadow-none">
                     </div>
 
                     <div class="vstack gap-1 overflow-auto pe-2 custom-scrollbar" style="max-height: 400px;" id="notesList">

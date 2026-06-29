@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Fragrance Videos Settings')
+@section('title', 'Showcase Videos Settings')
 
 @section('content')
 <div class="container-fluid py-4" style="background: #FAF9F6; min-height: 100vh;">
@@ -11,7 +11,7 @@
         
         <div class="position-relative z-1">
             <span class="badge mb-2 px-3 py-1.5 rounded-pill uppercase tracking-wider text-white-50" style="background: rgba(255,255,255,0.08); font-size: 10px; font-weight: 600; letter-spacing: 1.2px; border: 1px solid rgba(255,255,255,0.12);">ESTHETIC MANAGEMENT</span>
-            <h1 class="h2 text-white mb-2 fw-bold" style="font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.5px;">Custom Fragrance Videos</h1>
+            <h1 class="h2 text-white mb-2 fw-bold" style="font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.5px;">Custom Showcase Videos</h1>
             <p class="text-white-50 small mb-0" style="max-width: 600px; line-height: 1.6;">Configure the 5 YouTube videos displayed in the home page showcase of your theme. Enter the full YouTube URLs below.</p>
         </div>
     </div>

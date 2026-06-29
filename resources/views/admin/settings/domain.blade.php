@@ -12,7 +12,7 @@
         <div class="position-relative z-1">
             <span class="badge mb-2 px-3 py-1.5 rounded-pill uppercase tracking-wider text-white-50" style="background: rgba(255,255,255,0.08); font-size: 10px; font-weight: 600; letter-spacing: 1.2px; border: 1px solid rgba(255,255,255,0.12);">SYSTEM SETTINGS</span>
             <h1 class="h2 text-white mb-2 fw-bold" style="font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.5px;">Domain Connection</h1>
-            <p class="text-white-50 small mb-0" style="max-width: 600px; line-height: 1.6;">Connect your own custom domain (e.g., perfumes.com) to your brand's boutique.</p>
+            <p class="text-white-50 small mb-0" style="max-width: 600px; line-height: 1.6;">Connect your own custom domain (e.g., grocery.com) to your brand's store.</p>
         </div>
     </div>
 

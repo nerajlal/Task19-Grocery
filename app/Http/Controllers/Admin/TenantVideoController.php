@@ -45,6 +45,6 @@ class TenantVideoController extends Controller
 
         $videoSetting->update($validated);
 
-        return redirect()->back()->with('success', 'Fragrance showcase videos and collections updated successfully.');
+        return redirect()->back()->with('success', 'Showcase videos and collections updated successfully.');
     }
 }
