@@ -33,7 +33,7 @@
                         ? \App\Models\Cart::where('tenant_id', $tenantId)->where('user_id', auth()->id())->sum('quantity')
                         : collect(session()->get('cart', []))->sum('quantity');
                 @endphp
-                <span id="cart-count" style="background-color: var(--accent-color);">{{ $cartCount }}</span>
+                <span id="cart-count" class="cart-count" style="background-color: var(--accent-color);">{{ $cartCount }}</span>
             </a>
         </div>
     </div>

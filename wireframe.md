@@ -185,4 +185,81 @@ For simple text pages such as Shipping Policy, Return Policy, and Terms of Servi
 +-----------------------------------------------------------+
 ```
 
+---
+
+## 7. Product Detail Page Layout
+
+For individual product specifications, sizing options, and bulk pack offers.
+
+```
++-----------------------------------------------------------+
+| [Header] Logo | Search (Green Accent) | Acc / Login | Cart |
++-----------------------------------------------------------+
+|                                                           |
+|             [Breadcrumb Navigation]                       |
+|             Home > Shop > Product Name                    |
+|             +---------------------------------------+     |
+|             |  [Product Gallery] | [Product Info]   |     |
+|             |  Main Image        | Category / Badge |     |
+|             |  Thumbnails Grid   | Product Title    |     |
+|             |                    | Current/Compare  |     |
+|             |                    | Price            |     |
+|             |                    |------------------|     |
+|             |                    | Variant Select   |     |
+|             |                    | (Weight Options) |     |
+|             |                    |------------------|     |
+|             |                    | Volume Pack Deals|     |
+|             |                    | (dashed borders) |     |
+|             |                    |------------------|     |
+|             |                    | Quantity Selector|     |
+|             |                    | & Add to Bag btn |     |
+|             |                    |------------------|     |
+|             |                    | Description Tabs |     |
+|             +---------------------------------------+     |
+|                                                           |
+|             [Related Products / Recommendations]          |
+|             Grid of 4 Recommended Product Cards           |
+|                                                           |
++-----------------------------------------------------------+
+| [Footer] Brand Info / Trust | Categories | Care | News    |
++-----------------------------------------------------------+
+```
+
+### Components specific to this page:
+- **Variant Selector**: Dynamic pill elements allowing selection of weight options (e.g. `500g`, `1kg`) which update the displayed price dynamically.
+- **Volume Pack Deals**: Highlighted DAShed card rows displaying special bulk pack offers (e.g. `Pack of 3 - Save ₹60 instantly`) linked to the bundle cart controller.
+- **Related Products**: Underneath the main detail grid, loops through similar items in the same collection.
+
+---
+
+## 8. Combos & Weekly Deals Page Layout
+
+This page lists all special mix & match combos, bundle deals, and volume package offers.
+
+```
++-----------------------------------------------------------+
+| [Header] Logo | Search (Green Accent) | Acc / Login | Cart |
++-----------------------------------------------------------+
+|                                                           |
+|  [Sidebar Menu]           [Main Content Area]             |
+|  - All Products           +----------------------------+  |
+|  - Weekly Combos          |  [Collection Header]       |  |
+|  - Category 1             |  "Weekly Grocery Combos"   |  |
+|  - Category 2             |  Total combos count badge  |  |
+|  - Category 3             +----------------------------+  |
+|                           |  [Combos Grid]             |  |
+|                           |  Grid of Combo Cards       |  |
+|                           |  showing savings value     |  |
+|                           +----------------------------+  |
++-----------------------------------------------------------+
+| [Footer] Brand Info / Trust | Categories | Care | News    |
++-----------------------------------------------------------+
+```
+
+### Components specific to this page:
+- **Combo Card**: Rendered with a square thumbnail layout, including a "Save Bundle" or "Volume Deal" top-right badge, original retail price vs discount price display, and an add-to-bag action specifying type as `'bundle'`.
+- **Empty State Display**: Displays a layer-group icon, description, and redirect button back to the main catalog if no active bundles exist in the tenant's store.
+
+
+
 

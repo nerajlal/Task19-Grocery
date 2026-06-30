@@ -308,11 +308,11 @@ Route::prefix('v3')->name('v3.')->middleware([\App\Http\Middleware\IdentifyStore
     Route::get('/product', [PageController::class, 'v3Product'])->name('product');
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'v3Index'])->name('cart');
     Route::get('/checkout', [PageController::class, 'v3Checkout'])->name('checkout');
-    Route::view('/about', 'v3.about')->name('about');
-    Route::view('/contact', 'v3.contact')->name('contact');
-    Route::view('/shipping-policy', 'v3.shipping-policy')->name('shipping-policy');
-    Route::view('/return-policy', 'v3.return-policy')->name('return-policy');
-    Route::view('/terms-of-service', 'v3.terms-of-service')->name('terms-of-service');
+    Route::view('/about', 'template_1.about')->name('about');
+    Route::view('/contact', 'template_1.contact')->name('contact');
+    Route::view('/shipping-policy', 'template_1.shipping-policy')->name('shipping-policy');
+    Route::view('/return-policy', 'template_1.return-policy')->name('return-policy');
+    Route::view('/terms-of-service', 'template_1.terms-of-service')->name('terms-of-service');
 });
 
 // v4 Ajmal Theme Routes

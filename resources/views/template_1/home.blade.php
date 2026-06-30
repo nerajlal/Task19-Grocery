@@ -144,13 +144,18 @@
     @endif
 
     <!-- Newsletter Section -->
+    <style>
+        .newsletter-input::placeholder {
+            color: #94a3b8 !important;
+        }
+    </style>
     <div class="newsletter-section" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #fff; padding: 4rem 2rem; border-radius: 2rem; text-align: center; margin-bottom: 2rem;">
         <div class="newsletter-content" style="max-width: 650px; margin: 0 auto;">
             <h2 class="newsletter-title" style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Subscribe for Special Offers</h2>
             <p class="newsletter-subtitle" style="font-size: 1rem; color: #94a3b8; margin-bottom: 2rem; line-height: 1.5;">Get updates on new seasonal arrivals, farm harvest schedules, weekly coupons, and grocery discounts straight to your inbox.</p>
-            <form class="newsletter-input-group" style="display: flex; flex-direction: column; sm-flex-direction: row; gap: 0.5rem; justify-content: center; max-width: 500px; margin: 0 auto;">
-                <input type="email" placeholder="Your email address" class="newsletter-input" style="flex-grow: 1; padding: 0.85rem 1.5rem; border-radius: 9999px; border: none; outline: none; font-size: 0.95rem;">
-                <button type="button" class="newsletter-btn" style="background: var(--accent-color); color: #fff; border: none; padding: 0.85rem 2rem; border-radius: 9999px; font-weight: 700; cursor: pointer; transition: background 0.2s ease;" onmouseover="this.style.background='var(--accent-hover)'" onmouseout="this.style.background='var(--accent-color)'">Subscribe</button>
+            <form class="newsletter-input-group">
+                <input type="email" placeholder="Your email address" class="newsletter-input" style="color: var(--primary-color); outline: none;">
+                <button type="button" class="newsletter-btn" style="background-color: var(--accent-color); color: #fff;">Subscribe</button>
             </form>
         </div>
     </div>

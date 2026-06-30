@@ -1,6 +1,6 @@
-@extends('layouts.storefront')
+@extends('template_1.layouts.app')
 
-@section('title', 'Our Legacy | VESPR Perfumes')
+@section('title', 'Our Legacy | ' . ($currentTenant->name ?? 'Fresh Grocery'))
 
 @section('content')
 <div class="about-hero">
