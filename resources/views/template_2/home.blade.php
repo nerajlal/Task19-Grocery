@@ -6,14 +6,11 @@
 
 @section('content')
     <!-- Hero Banner Section -->
-    <div class="hero-banner" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); padding: 3.5rem 2rem; border-radius: 2rem; display: flex; flex-direction: column-reverse; md-flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; border: 1px solid rgba(16, 185, 129, 0.1);">
-        <div class="hero-content" style="max-width: 550px;">
-            <h1 class="hero-title" style="font-size: 2.8rem; font-weight: 800; color: #064e3b; line-height: 1.15; margin-bottom: 1rem;">Farm Fresh Groceries <br><span style="color: var(--accent-color);">Delivered Daily</span></h1>
-            <p class="hero-subtitle" style="font-size: 1.05rem; color: #065f46; margin-bottom: 2rem; line-height: 1.5;">Shop organic fruits, fresh vegetables, dairy, bakery items, and daily household essentials from the comfort of your home. Enjoy super-fast home delivery and unbeatable prices.</p>
-            <a href="{{ route('v3.all-products') }}" class="btn-primary" style="background: var(--accent-color); color: #fff; padding: 0.85rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); transition: all 0.2s ease;">Start Shopping <i class="fa-solid fa-arrow-right ms-2"></i></a>
-        </div>
-        <div class="hero-img-container" style="max-width: 450px;">
-            <img src="{{ asset('Images/placeholder-grocery.webp') }}" alt="Fresh Grocery Basket" class="hero-image" style="width: 100%; border-radius: 1.5rem; box-shadow: 0 15px 30px rgba(0,0,0,0.08); object-fit: cover;">
+    <div class="hero-banner" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); padding: 4rem 3rem; border-radius: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; margin-bottom: 2rem; border: 1px solid rgba(16, 185, 129, 0.1);">
+        <div class="hero-content" style="max-width: 800px; margin: 0 auto;">
+            <h1 class="hero-title" style="font-size: 3.2rem; font-weight: 800; color: #064e3b; line-height: 1.15; margin-bottom: 1.5rem;">Farm Fresh Groceries <br><span style="color: var(--accent-color);">Delivered Daily</span></h1>
+            <p class="hero-subtitle" style="font-size: 1.15rem; color: #065f46; margin-bottom: 2.5rem; line-height: 1.6;">Shop organic fruits, fresh vegetables, dairy, bakery items, and daily household essentials from the comfort of your home. Enjoy super-fast home delivery and unbeatable prices.</p>
+            <a href="{{ route('v3.all-products') }}" class="btn-primary" style="background: var(--accent-color); color: #fff; padding: 0.95rem 2.5rem; border-radius: 9999px; font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); transition: all 0.2s ease;">Start Shopping <i class="fa-solid fa-arrow-right ms-2"></i></a>
         </div>
     </div>
     

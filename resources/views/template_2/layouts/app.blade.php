@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
+            background-color: #fff;
             color: var(--primary-color);
         }
 
@@ -55,7 +55,7 @@
 <body>
     @include('template_2.partials.header')
 
-    <main class="main-content" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; min-height: 70vh;">
+    <main class="main-content" style="width: 100%; max-width: 1400px; margin: 0 auto; padding: 2rem 2rem; background: #fff; min-height: 70vh; box-sizing: border-box;">
         @yield('content')
     </main>
 

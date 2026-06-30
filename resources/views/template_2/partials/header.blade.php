@@ -1,5 +1,5 @@
 <header class="store-header" style="display: flex; flex-direction: column; align-items: stretch; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.03); background: #fff; border-bottom: 1px solid var(--border-color); padding: 0.5rem 0;">
-    <div class="header-container" style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 1.5rem; gap: 2rem;">
+    <div class="header-container" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 2rem; gap: 2rem;">
         <a href="{{ route('v3.home') }}" class="logo" style="color: var(--accent-color); font-weight: 800; font-size: 1.6rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
             <i class="fa-solid fa-leaf"></i>{{ $currentTenant->name ?? 'Fresh Grocery' }}
         </a>
@@ -22,23 +22,22 @@
                 </a>
             @endauth
 
-            <a href="javascript:void(0)" class="action-btn cart-btn text-decoration-none" onclick="toggleNCart(true)" style="display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; font-weight: 600; color: var(--primary-color); position: relative;">
-                <i class="fa-solid fa-cart-shopping" style="font-size: 1.25rem; margin-bottom: 0.25rem;"></i>
+            <a href="javascript:void(0)" class="action-btn cart-btn text-decoration-none" onclick="toggleNCart(true)">
+                <i class="fa-solid fa-cart-shopping"></i>
                 @php
                     $tenantId = $currentTenant->id ?? 1;
                     $cartCount = auth()->check() 
                         ? \App\Models\Cart::where('tenant_id', $tenantId)->where('user_id', auth()->id())->sum('quantity')
                         : collect(session()->get('cart', []))->sum('quantity');
                 @endphp
-                <span id="cart-count" class="cart-count" style="position: absolute; top: -5px; right: -5px; background-color: var(--accent-color); color: #fff; border-radius: 50%; font-size: 0.65rem; padding: 2px 6px; font-weight: 700; border: 2px solid #fff;">{{ $cartCount }}</span>
-                <span>Cart</span>
+                <span id="cart-count" class="cart-count" style="background-color: var(--accent-color);">{{ $cartCount }}</span>
             </a>
         </div>
     </div>
 
     <!-- Dynamic Horizontal Top Navigation Menu Bar -->
     <nav class="top-nav-menu-bar" style="border-top: 1px solid var(--border-color); margin-top: 0.5rem; background: #fafafb;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 1.5rem; overflow-x: auto; white-space: nowrap;">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 2rem; overflow-x: auto; white-space: nowrap;">
             <a href="{{ route('v3.home') }}" style="color: var(--primary-color); font-weight: 700; text-decoration: none; font-size: 0.95rem; transition: 0.2s;" class="nav-link-item hover-green">
                 <i class="fa-solid fa-house me-1"></i> Home
             </a>
