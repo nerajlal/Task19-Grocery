@@ -14,6 +14,28 @@ class PageController extends Controller
             ?? 1;
     }
 
+    private function getView($name)
+    {
+        $tenantId = $this->tenantId();
+        $tenant = \App\Models\Tenant::find($tenantId);
+        $theme = $tenant ? $tenant->theme : 'template_1';
+        
+        if ($theme === 'template_2') {
+            return "template_2.{$name}";
+        }
+        return "template_1.{$name}";
+    }
+
+    public function about()
+    {
+        return view($this->getView('about'));
+    }
+
+    public function contact()
+    {
+        return view($this->getView('contact'));
+    }
+
     public function home()
     {
         $tenantId = $this->tenantId();
@@ -21,7 +43,7 @@ class PageController extends Controller
         $bestsellers = \App\Models\HomeProduct::where('tenant_id', $tenantId)->with(['product.variants', 'product.images'])->orderBy('sort_order', 'asc')->get();
         $collections = \App\Models\Collection::where('tenant_id', $tenantId)->where('status', true)->get();
         $bundles = \App\Models\Bundle::where('tenant_id', $tenantId)->where('status', 'active')->where('type', 'bundle')->with(['products.variants'])->latest()->take(4)->get();
-        return view('template_1.home', compact('sliders', 'bestsellers', 'collections', 'bundles'));
+        return view($this->getView('home'), compact('sliders', 'bestsellers', 'collections', 'bundles'));
     }
 
     public function v3Home()
@@ -31,7 +53,7 @@ class PageController extends Controller
         $bestsellers = \App\Models\HomeProduct::where('tenant_id', $tenantId)->with(['product.variants', 'product.images'])->orderBy('sort_order', 'asc')->get();
         $collections = \App\Models\Collection::where('tenant_id', $tenantId)->where('status', true)->get();
         $bundles = \App\Models\Bundle::where('tenant_id', $tenantId)->where('status', 'active')->where('type', 'bundle')->with(['products.variants'])->latest()->take(4)->get();
-        return view('template_1.home', compact('sliders', 'bestsellers', 'collections', 'bundles'));
+        return view($this->getView('home'), compact('sliders', 'bestsellers', 'collections', 'bundles'));
     }
 
     public function ajmalHome()
@@ -47,12 +69,12 @@ class PageController extends Controller
 
     public function collection(Request $request)
     {
-        return $this->handleCollection($request, 'template_1.collection');
+        return $this->handleCollection($request, $this->getView('collection'));
     }
 
     public function v3Collection(Request $request)
     {
-        return $this->handleCollection($request, 'template_1.collection');
+        return $this->handleCollection($request, $this->getView('collection'));
     }
 
     public function ajmalCollection(Request $request)
@@ -106,12 +128,12 @@ class PageController extends Controller
 
     public function allProducts()
     {
-        return $this->handleAllProducts('template_1.all-products');
+        return $this->handleAllProducts($this->getView('all-products'));
     }
 
     public function v3AllProducts()
     {
-        return $this->handleAllProducts('template_1.all-products');
+        return $this->handleAllProducts($this->getView('all-products'));
     }
 
     public function ajmalAllProducts(Request $request)
@@ -156,12 +178,12 @@ class PageController extends Controller
 
     public function combos()
     {
-        return $this->handleCombos('template_1.combos');
+        return $this->handleCombos($this->getView('combos'));
     }
 
     public function v3Combos()
     {
-        return $this->handleCombos('template_1.combos');
+        return $this->handleCombos($this->getView('combos'));
     }
 
     private function handleCombos($view)
@@ -180,12 +202,12 @@ class PageController extends Controller
 
     public function combo(Request $request)
     {
-        return $this->handleCombo($request, 'template_1.bundle-main');
+        return $this->handleCombo($request, $this->getView('bundle-main'));
     }
 
     public function v3Combo(Request $request)
     {
-        return $this->handleCombo($request, 'template_1.bundle-main');
+        return $this->handleCombo($request, $this->getView('bundle-main'));
     }
 
     private function handleCombo(Request $request, $view)
@@ -209,12 +231,12 @@ class PageController extends Controller
 
     public function product(Request $request)
     {
-        return $this->handleProduct($request, 'template_1.product-main');
+        return $this->handleProduct($request, $this->getView('product-main'));
     }
 
     public function v3Product(Request $request)
     {
-        return $this->handleProduct($request, 'template_1.product-main');
+        return $this->handleProduct($request, $this->getView('product-main'));
     }
 
     public function ajmalProduct(Request $request)
@@ -254,18 +276,18 @@ class PageController extends Controller
         return view('velvet.product-main', compact('product', 'bundle', 'packBundles', 'poolBundles', 'collections'));
     }
 
-    public function shippingPolicy() { return view('template_1.shipping-policy'); }
-    public function returnPolicy() { return view('template_1.return-policy'); }
-    public function termsOfService() { return view('template_1.terms-of-service'); }
+    public function shippingPolicy() { return view($this->getView('shipping-policy')); }
+    public function returnPolicy() { return view($this->getView('return-policy')); }
+    public function termsOfService() { return view($this->getView('terms-of-service')); }
 
     public function checkout()
     {
-        return $this->handleCheckout('Checkout.checkout', 'template_1.layouts.app');
+        return $this->handleCheckout('Checkout.checkout', $this->getView('layouts.app'));
     }
 
     public function v3Checkout()
     {
-        return $this->handleCheckout('Checkout.checkout', 'template_1.layouts.app');
+        return $this->handleCheckout('Checkout.checkout', $this->getView('layouts.app'));
     }
 
     public function ajmalCheckout()

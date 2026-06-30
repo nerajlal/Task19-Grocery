@@ -27,6 +27,14 @@ class ThemeSettingsController extends Controller
                 'preview_img' => '/Images/landing/v3-template.png',
                 'preview_route' => 'v3.home',
             ],
+            [
+                'id' => 'template_2',
+                'name' => 'Top Menu Premium',
+                'version' => 'Top Menu Layout',
+                'description' => 'Modern grocery store layout with a horizontal category top navigation menu, no sidebars, full-width content grids, and clean fresh fonts.',
+                'preview_img' => '/Images/landing/v3-template.png',
+                'preview_route' => 'v3.home',
+            ],
         ];
 
         return view('admin.settings.theme', compact('tenant', 'themes'));
@@ -40,7 +48,7 @@ class ThemeSettingsController extends Controller
         $request->validate([
             'theme' => [
                 'required',
-                Rule::in(['aura_luxe'])
+                Rule::in(['aura_luxe', 'template_2'])
             ]
         ]);
 

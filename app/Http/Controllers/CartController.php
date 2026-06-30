@@ -97,7 +97,12 @@ class CartController extends Controller
         $subtotal = $cartData['subtotal'];
         $savings = $cartData['savings'];
         
-        return view('v3.cart', compact('cart', 'total', 'subtotal', 'savings'));
+        $tenantId = session('active_tenant_id') ?? (auth()->check() ? auth()->user()->tenant_id : null) ?? 1;
+        $tenant = \App\Models\Tenant::find($tenantId);
+        $theme = $tenant ? $tenant->theme : 'template_1';
+        $view = ($theme === 'template_2') ? 'template_2.cart' : 'template_1.cart';
+
+        return view($view, compact('cart', 'total', 'subtotal', 'savings'));
     }
 
     /**
@@ -718,6 +723,8 @@ class CartController extends Controller
             $view = 'v4.partials.cart_drawer_items';
         } elseif ($theme == 'velvet') {
             $view = 'velvet.partials.cart_drawer_items';
+        } elseif ($theme == 'template_2') {
+            $view = 'template_2.partials.cart_drawer_items';
         } else {
             $view = 'template_1.partials.cart_drawer_items';
         }

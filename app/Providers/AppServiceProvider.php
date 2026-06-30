@@ -49,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
                 'v3' => 'v3.home',
                 'aura_luxe' => 'v3.home',
                 'template_1' => 'v3.home',
+                'template_2' => 'v3.home',
                 'v4' => 'v4.home',
                 'ajmal' => 'v4.home',
                 'editorial_cream' => 'v4.home',
