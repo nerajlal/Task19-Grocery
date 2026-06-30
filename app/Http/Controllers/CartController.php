@@ -53,7 +53,7 @@ class CartController extends Controller
         $subtotal = $cartData['subtotal'];
         $savings = $cartData['savings'];
         
-        return view('nurah.cart', compact('cart', 'total', 'subtotal', 'savings'));
+        return view('template_1.cart', compact('cart', 'total', 'subtotal', 'savings'));
     }
 
     /**
@@ -713,13 +713,13 @@ class CartController extends Controller
         $subtotal = $cartData['subtotal'];
         $savings = $cartData['savings'];
 
-        $theme = $request->theme ?? 'nurah';
+        $theme = $request->theme ?? 'template_1';
         if ($theme == 'v4') {
             $view = 'v4.partials.cart_drawer_items';
         } elseif ($theme == 'velvet') {
             $view = 'velvet.partials.cart_drawer_items';
         } else {
-            $view = 'nurah.partials.cart_drawer_items';
+            $view = 'template_1.partials.cart_drawer_items';
         }
 
         return view($view, compact('cart', 'total', 'subtotal', 'savings'))->render();

@@ -21,7 +21,7 @@ class PageController extends Controller
         $bestsellers = \App\Models\HomeProduct::where('tenant_id', $tenantId)->with(['product.variants', 'product.images'])->orderBy('sort_order', 'asc')->get();
         $collections = \App\Models\Collection::where('tenant_id', $tenantId)->where('status', true)->get();
         $bundles = \App\Models\Bundle::where('tenant_id', $tenantId)->where('status', 'active')->where('type', 'bundle')->with(['products.variants'])->latest()->take(4)->get();
-        return view('nurah.home', compact('sliders', 'bestsellers', 'collections', 'bundles'));
+        return view('template_1.home', compact('sliders', 'bestsellers', 'collections', 'bundles'));
     }
 
     public function v3Home()
@@ -31,7 +31,7 @@ class PageController extends Controller
         $bestsellers = \App\Models\HomeProduct::where('tenant_id', $tenantId)->with(['product.variants', 'product.images'])->orderBy('sort_order', 'asc')->get();
         $collections = \App\Models\Collection::where('tenant_id', $tenantId)->where('status', true)->get();
         $bundles = \App\Models\Bundle::where('tenant_id', $tenantId)->where('status', 'active')->where('type', 'bundle')->with(['products.variants'])->latest()->take(4)->get();
-        return view('v3.home', compact('sliders', 'bestsellers', 'collections', 'bundles'));
+        return view('template_1.home', compact('sliders', 'bestsellers', 'collections', 'bundles'));
     }
 
     public function ajmalHome()
@@ -47,12 +47,12 @@ class PageController extends Controller
 
     public function collection(Request $request)
     {
-        return $this->handleCollection($request, 'nurah.collection');
+        return $this->handleCollection($request, 'template_1.collection');
     }
 
     public function v3Collection(Request $request)
     {
-        return $this->handleCollection($request, 'v3.collection');
+        return $this->handleCollection($request, 'template_1.collection');
     }
 
     public function ajmalCollection(Request $request)
@@ -106,12 +106,12 @@ class PageController extends Controller
 
     public function allProducts()
     {
-        return $this->handleAllProducts('nurah.all-products');
+        return $this->handleAllProducts('template_1.all-products');
     }
 
     public function v3AllProducts()
     {
-        return $this->handleAllProducts('v3.all-products');
+        return $this->handleAllProducts('template_1.all-products');
     }
 
     public function ajmalAllProducts(Request $request)
@@ -156,12 +156,12 @@ class PageController extends Controller
 
     public function combos()
     {
-        return $this->handleCombos('nurah.combos');
+        return $this->handleCombos('template_1.combos');
     }
 
     public function v3Combos()
     {
-        return $this->handleCombos('v3.combos');
+        return $this->handleCombos('template_1.combos');
     }
 
     private function handleCombos($view)
@@ -180,12 +180,12 @@ class PageController extends Controller
 
     public function combo(Request $request)
     {
-        return $this->handleCombo($request, 'nurah.bundle-main');
+        return $this->handleCombo($request, 'template_1.bundle-main');
     }
 
     public function v3Combo(Request $request)
     {
-        return $this->handleCombo($request, 'v3.bundle-main');
+        return $this->handleCombo($request, 'template_1.bundle-main');
     }
 
     private function handleCombo(Request $request, $view)
@@ -209,12 +209,12 @@ class PageController extends Controller
 
     public function product(Request $request)
     {
-        return $this->handleProduct($request, 'nurah.product-main');
+        return $this->handleProduct($request, 'template_1.product-main');
     }
 
     public function v3Product(Request $request)
     {
-        return $this->handleProduct($request, 'v3.product-main');
+        return $this->handleProduct($request, 'template_1.product-main');
     }
 
     public function ajmalProduct(Request $request)
@@ -254,18 +254,18 @@ class PageController extends Controller
         return view('velvet.product-main', compact('product', 'bundle', 'packBundles', 'poolBundles', 'collections'));
     }
 
-    public function shippingPolicy() { return view('nurah.shipping-policy'); }
-    public function returnPolicy() { return view('nurah.return-policy'); }
-    public function termsOfService() { return view('nurah.terms-of-service'); }
+    public function shippingPolicy() { return view('template_1.shipping-policy'); }
+    public function returnPolicy() { return view('template_1.return-policy'); }
+    public function termsOfService() { return view('template_1.terms-of-service'); }
 
     public function checkout()
     {
-        return $this->handleCheckout('nurah.checkout');
+        return $this->handleCheckout('template_1.checkout');
     }
 
     public function v3Checkout()
     {
-        return $this->handleCheckout('v3.checkout');
+        return $this->handleCheckout('template_1.checkout');
     }
 
     public function ajmalCheckout()

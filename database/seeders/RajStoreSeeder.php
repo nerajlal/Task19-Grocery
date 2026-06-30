@@ -20,7 +20,7 @@ class RajStoreSeeder extends Seeder
             ['name' => 'Raj Store'],
             [
                 'plan' => 'sprout',
-                'theme' => 'aura_luxe',
+                'theme' => 'template_1',
                 'domain' => 'rajstore.local',
             ]
         );
