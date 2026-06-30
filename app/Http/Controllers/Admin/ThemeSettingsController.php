@@ -23,33 +23,9 @@ class ThemeSettingsController extends Controller
                 'id' => 'aura_luxe',
                 'name' => 'Aura Luxe',
                 'version' => 'Modern Luxury',
-                'description' => 'Modern luxury layout with a clean premium feel, beautiful grid designs, and gold accents.',
+                'description' => 'Modern grocery store layout with a clean premium design, responsive category sidebar, weekly combos grid, and farm-fresh typography.',
                 'preview_img' => '/Images/landing/v3-template.png',
                 'preview_route' => 'v3.home',
-            ],
-            [
-                'id' => 'velvet_dark',
-                'name' => 'Velvet Dark',
-                'version' => 'Dark Luxury',
-                'description' => 'Sleek, immersive dark aesthetic tailored for high-end boutique brands and luxury vibes.',
-                'preview_img' => '/Images/landing/v2-template.png',
-                'preview_route' => 'velvet.home',
-            ],
-            [
-                'id' => 'editorial_cream',
-                'name' => 'Editorial Cream',
-                'version' => 'Elegant Cream',
-                'description' => 'Classic, editorial feel with cream background accents, sophisticated fonts, and clean lines.',
-                'preview_img' => '/Images/landing/v4-template.png',
-                'preview_route' => 'v4.home',
-            ],
-            [
-                'id' => 'modern_minimal',
-                'name' => 'Modern Minimal',
-                'version' => 'Clean Minimal',
-                'description' => 'Super clean, high-performance, and straightforward layout focused entirely on readability.',
-                'preview_img' => '/Images/landing/v1-template.png',
-                'preview_route' => 'v1.home',
             ],
         ];
 
@@ -64,7 +40,7 @@ class ThemeSettingsController extends Controller
         $request->validate([
             'theme' => [
                 'required',
-                Rule::in(['aura_luxe', 'velvet_dark', 'editorial_cream', 'modern_minimal'])
+                Rule::in(['aura_luxe'])
             ]
         ]);
 

@@ -26,11 +26,22 @@ class ProductVariant extends Model
     public function getPriceAttribute($value)
     {
         if (auth()->check()) {
+            // 1. Check individual custom price
             $custom = \App\Models\CustomPrice::where('user_id', auth()->id())
                 ->where('product_id', $this->product_id)
                 ->first();
             if ($custom) {
                 return $custom->price;
+            }
+
+            // 2. Check group custom price
+            $groupPrice = \App\Models\GroupCustomPrice::whereHas('group.users', function($q) {
+                $q->where('users.id', auth()->id());
+            })
+            ->where('product_id', $this->product_id)
+            ->first();
+            if ($groupPrice) {
+                return $groupPrice->price;
             }
         }
         return $value;

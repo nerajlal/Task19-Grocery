@@ -88,4 +88,48 @@ class SettingController extends Controller
 
         return redirect()->back()->with('success', 'Payment gateway settings updated successfully.');
     }
+
+    /**
+     * Show storefront pages settings view.
+     */
+    public function storefrontIndex()
+    {
+        $tenantId = auth()->user()->tenant_id ?? session('active_tenant_id') ?? 1;
+        $tenant = Tenant::findOrFail($tenantId);
+
+        return view('admin.settings.storefront', compact('tenant'));
+    }
+
+    /**
+     * Update storefront pages settings.
+     */
+    public function storefrontUpdate(Request $request)
+    {
+        $tenantId = auth()->user()->tenant_id ?? session('active_tenant_id') ?? 1;
+        $tenant = Tenant::findOrFail($tenantId);
+
+        $request->validate([
+            'about_title' => 'required|string|max:255',
+            'about_text' => 'nullable|string',
+            'contact_email' => 'nullable|email|max:255',
+            'contact_phone' => 'nullable|string|max:255',
+            'contact_address' => 'nullable|string',
+            'shipping_policy' => 'nullable|string',
+            'return_policy' => 'nullable|string',
+            'terms_of_service' => 'nullable|string',
+        ]);
+
+        $tenant->update([
+            'about_title' => $request->about_title,
+            'about_text' => $request->about_text,
+            'contact_email' => $request->contact_email,
+            'contact_phone' => $request->contact_phone,
+            'contact_address' => $request->contact_address,
+            'shipping_policy' => $request->shipping_policy,
+            'return_policy' => $request->return_policy,
+            'terms_of_service' => $request->terms_of_service,
+        ]);
+
+        return redirect()->back()->with('success', 'Storefront pages settings updated successfully.');
+    }
 }

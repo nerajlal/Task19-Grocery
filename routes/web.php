@@ -197,6 +197,15 @@ Route::prefix('{tenant}/admin')->name('admin.')->middleware(['identify_tenant', 
     Route::post('/custom-prices', [App\Http\Controllers\Admin\CustomPriceController::class, 'store'])->name('custom-prices.store');
     Route::delete('/custom-prices/{id}', [App\Http\Controllers\Admin\CustomPriceController::class, 'destroy'])->name('custom-prices.destroy');
 
+    // Group Custom Pricing routes
+    Route::post('/customer-groups', [App\Http\Controllers\Admin\GroupPricingController::class, 'storeGroup'])->name('customer-groups.store');
+    Route::post('/customer-groups/add-users', [App\Http\Controllers\Admin\GroupPricingController::class, 'addUsersToGroup'])->name('customer-groups.add-users');
+    Route::delete('/customer-groups/{id}', [App\Http\Controllers\Admin\GroupPricingController::class, 'destroyGroup'])->name('customer-groups.destroy');
+    Route::delete('/customer-groups/{groupId}/remove-user/{userId}', [App\Http\Controllers\Admin\GroupPricingController::class, 'removeUserFromGroup'])->name('customer-groups.remove-user');
+
+    Route::post('/group-custom-prices', [App\Http\Controllers\Admin\GroupPricingController::class, 'storeGroupPrice'])->name('group-custom-prices.store');
+    Route::delete('/group-custom-prices/{id}', [App\Http\Controllers\Admin\GroupPricingController::class, 'destroyGroupPrice'])->name('group-custom-prices.destroy');
+
     Route::get('/settings/slider', [App\Http\Controllers\Admin\SliderController::class, 'index'])->name('settings.slider');
     Route::get('/settings/slider/create', [App\Http\Controllers\Admin\SliderController::class, 'create'])->name('settings.slider.create');
     Route::post('/settings/slider', [App\Http\Controllers\Admin\SliderController::class, 'store'])->name('settings.slider.store');
@@ -228,6 +237,9 @@ Route::prefix('{tenant}/admin')->name('admin.')->middleware(['identify_tenant', 
 
     Route::get('/settings/payment', [App\Http\Controllers\Admin\SettingController::class, 'paymentIndex'])->name('settings.payment');
     Route::post('/settings/payment', [App\Http\Controllers\Admin\SettingController::class, 'paymentUpdate'])->name('settings.payment.update');
+
+    Route::get('/settings/storefront', [App\Http\Controllers\Admin\SettingController::class, 'storefrontIndex'])->name('settings.storefront');
+    Route::post('/settings/storefront', [App\Http\Controllers\Admin\SettingController::class, 'storefrontUpdate'])->name('settings.storefront.update');
 });
 
 

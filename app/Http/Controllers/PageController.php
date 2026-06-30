@@ -260,17 +260,17 @@ class PageController extends Controller
 
     public function checkout()
     {
-        return $this->handleCheckout('template_1.checkout');
+        return $this->handleCheckout('Checkout.checkout', 'template_1.layouts.app');
     }
 
     public function v3Checkout()
     {
-        return $this->handleCheckout('template_1.checkout');
+        return $this->handleCheckout('Checkout.checkout', 'template_1.layouts.app');
     }
 
     public function ajmalCheckout()
     {
-        return $this->handleCheckout('v4.checkout');
+        return $this->handleCheckout('Checkout.checkout', 'layouts.storefront');
     }
 
     public function afnanHome()
@@ -316,7 +316,7 @@ class PageController extends Controller
         return $this->handleCheckout('v5.checkout');
     }
 
-    private function handleCheckout($view)
+    private function handleCheckout($view, $layout = 'template_1.layouts.app')
     {
         $cart = [];
         $address = null;
@@ -380,7 +380,7 @@ class PageController extends Controller
         $total = $cartData['total'];
         $subtotal = $cartData['subtotal'];
         $savings = $cartData['savings'];
-        return view($view, compact('cart', 'total', 'subtotal', 'savings', 'address'));
+        return view($view, compact('cart', 'total', 'subtotal', 'savings', 'address', 'layout'));
     }
 
     private function getActiveCoupon($product)

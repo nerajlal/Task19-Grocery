@@ -83,8 +83,10 @@ class DiscountController extends Controller
         $customers = \App\Models\User::where('type', 'user')->orderBy('name', 'asc')->get();
         $products = \App\Models\Product::where('status', 'active')->orderBy('title', 'asc')->get();
         $customPrices = \App\Models\CustomPrice::with(['user', 'product'])->latest()->get();
+        $customerGroups = \App\Models\CustomerGroup::with('users')->where('tenant_id', auth()->user()->tenant_id ?? session('active_tenant_id') ?? 1)->orderBy('name', 'asc')->get();
+        $groupCustomPrices = \App\Models\GroupCustomPrice::with(['group', 'product'])->where('tenant_id', auth()->user()->tenant_id ?? session('active_tenant_id') ?? 1)->latest()->get();
         
-        return view('admin.discounts.index', compact('discounts', 'total', 'active', 'expired', 'inactive', 'customers', 'products', 'customPrices'));
+        return view('admin.discounts.index', compact('discounts', 'total', 'active', 'expired', 'inactive', 'customers', 'products', 'customPrices', 'customerGroups', 'groupCustomPrices'));
     }
 
     public function create()

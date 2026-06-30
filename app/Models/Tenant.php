@@ -10,6 +10,14 @@ class Tenant extends Model
         'name',
         'plan',
         'theme',
+        'about_title',
+        'about_text',
+        'contact_email',
+        'contact_phone',
+        'contact_address',
+        'shipping_policy',
+        'return_policy',
+        'terms_of_service',
     ];
 
     public function admin()

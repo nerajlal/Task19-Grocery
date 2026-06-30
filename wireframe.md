@@ -260,6 +260,38 @@ This page lists all special mix & match combos, bundle deals, and volume package
 - **Combo Card**: Rendered with a square thumbnail layout, including a "Save Bundle" or "Volume Deal" top-right badge, original retail price vs discount price display, and an add-to-bag action specifying type as `'bundle'`.
 - **Empty State Display**: Displays a layer-group icon, description, and redirect button back to the main catalog if no active bundles exist in the tenant's store.
 
+---
+
+## 9. Dynamic Storefront Content Management
+
+All static text pages load their copy dynamically from the tenant's settings columns in the database. If no custom values are defined by the administrator, the storefront reverts to standard premium grocery defaults.
+
+### Content Sources:
+- **About Page**:
+  - Hero Title: `{{ $currentTenant->about_title }}` (Defaults to: *Cultivating Health & Happiness*)
+  - Main Description Body: `{{ $currentTenant->about_text }}`
+- **Contact Page**:
+  - Support Email: `{{ $currentTenant->contact_email }}`
+  - Support Phone: `{{ $currentTenant->contact_phone }}`
+  - Shop Address: `{{ $currentTenant->contact_address }}`
+- **Policy Pages**:
+  - Shipping Policy: `{{ $currentTenant->shipping_policy }}`
+  - Return Policy: `{{ $currentTenant->return_policy }}`
+  - Terms of Service: `{{ $currentTenant->terms_of_service }}`
+
+---
+
+## 10. Dynamic Layout-Independent Checkout Page
+
+To ensure checkout logic and structure is reusable across all storefront themes, the checkout template is hosted centrally in the `Checkout` namespace.
+
+### Architecture:
+- View Path: [checkout.blade.php](file:///Applications/XAMPP/xamppfiles/htdocs/Github/Grocery/resources/views/Checkout/checkout.blade.php)
+- Layout Inheritance: Extends `$layout` dynamically passed from the controller (`@extends($layout ?? 'template_1.layouts.app')`). This allows the same checkout to render seamlessly inside any active theme's wrapper header/footer.
+- Fields: Contact details (Auto-filled for authenticated users), Delivery address (Street, City, State, PIN code), and Payment Selection (Cash on Delivery / Razorpay Online options).
+
+
+
 
 
 

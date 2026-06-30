@@ -295,5 +295,65 @@ class RajStoreSeeder extends Seeder
                 }
             }
         }
+
+        // 4. Seed Combo Bundles (type = 'bundle') composed of multiple products
+        $combos = [
+            [
+                'title' => 'Healthy Breakfast Combo',
+                'description' => 'Kickstart your morning with fresh organic bananas, farm fresh milk, and stone-ground whole wheat bread!',
+                'discount_percentage' => 15,
+                'products' => ['Full Cream Organic Milk', 'Whole Wheat Fresh Bread', 'Fresh Organic Bananas']
+            ],
+            [
+                'title' => 'Fruit & Juice Vitality Combo',
+                'description' => 'Get your daily dose of vitamins with this refreshing combo of bananas, avocados, and natural orange juice!',
+                'discount_percentage' => 10,
+                'products' => ['Fresh Organic Bananas', 'Fresh Organic Avocados', 'Natural Orange Juice']
+            ],
+            [
+                'title' => 'Pantry Essentials Combo',
+                'description' => 'Stock up your pantry with Mediterranean Extra Virgin Olive Oil, Aromatic Basmati Rice, and fresh farm tomatoes.',
+                'discount_percentage' => 12,
+                'products' => ['Premium Olive Oil', 'Premium Basmati Rice', 'Fresh Farm Tomatoes']
+            ]
+        ];
+
+        foreach ($combos as $cData) {
+            $comboTitle = $cData['title'] . ' (Combo)';
+            $existingCombo = \App\Models\Bundle::withoutGlobalScopes()
+                ->where('tenant_id', $tenant->id)
+                ->where('title', $comboTitle)
+                ->first();
+
+            if (!$existingCombo) {
+                // Fetch the product records
+                $dbProducts = Product::withoutGlobalScopes()
+                    ->where('tenant_id', $tenant->id)
+                    ->whereIn('title', $cData['products'])
+                    ->get();
+
+                if ($dbProducts->count() > 0) {
+                    $newCombo = \App\Models\Bundle::create([
+                        'tenant_id' => $tenant->id,
+                        'title' => $comboTitle,
+                        'slug' => Str::slug($comboTitle) . '-' . $tenant->id . '-' . rand(100, 999),
+                        'description' => $cData['description'],
+                        'type' => 'bundle',
+                        'discount_type' => 'percentage',
+                        'discount_value' => $cData['discount_percentage'],
+                        'status' => 'active',
+                        'image' => 'Images/placeholder-grocery.webp',
+                    ]);
+
+                    foreach ($dbProducts as $dbProduct) {
+                        $firstVariant = ProductVariant::where('product_id', $dbProduct->id)->first();
+                        $newCombo->products()->attach($dbProduct->id, [
+                            'quantity' => 1,
+                            'product_variant_id' => $firstVariant ? $firstVariant->id : null
+                        ]);
+                    }
+                }
+            }
+        }
     }
 }

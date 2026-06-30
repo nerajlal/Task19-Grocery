@@ -19,6 +19,11 @@
             <i class="fa-solid fa-user-tag me-2"></i> Customer Custom Pricing
         </button>
     </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link px-4 py-2.5 fw-semibold rounded-3 border shadow-sm" id="group-prices-tab" data-bs-toggle="tab" data-bs-target="#group-prices-pane" type="button" role="tab" style="color: #495057;">
+            <i class="fa-solid fa-users-viewfinder me-2"></i> Group Custom Pricing
+        </button>
+    </li>
 </ul>
 
 <div class="tab-content" id="discountsTabsContent">
@@ -223,6 +228,189 @@
             </div>
         </div>
     </div>
+
+    <!-- Group Prices Pane -->
+    <div class="tab-pane fade" id="group-prices-pane" role="tabpanel" aria-labelledby="group-prices-tab">
+        <div class="row g-4">
+            <!-- Left Side Forms -->
+            <div class="col-12 col-md-4">
+                <!-- Create Customer Group -->
+                <div class="card border shadow-sm p-4 bg-white mb-4">
+                    <h2 class="h5 fw-bold text-dark mb-3">Create Customer Group</h2>
+                    <form action="{{ route('admin.customer-groups.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-secondary">Group Name</label>
+                            <input type="text" name="name" class="form-control shadow-sm" placeholder="e.g. VIP Customers, Wholesale Buyers" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 shadow-sm">Create Group</button>
+                    </form>
+                </div>
+
+                <!-- Add Customers to Group -->
+                <div class="card border shadow-sm p-4 bg-white mb-4">
+                    <h2 class="h5 fw-bold text-dark mb-3">Assign Customers to Group</h2>
+                    <form action="{{ route('admin.customer-groups.add-users') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-secondary">Select Group</label>
+                            <select name="customer_group_id" class="form-select shadow-sm" required>
+                                <option value="">Choose Group...</option>
+                                @foreach($customerGroups as $group)
+                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-secondary">Select Customers</label>
+                            <select name="users[]" class="form-select shadow-sm" multiple required style="height: 120px;">
+                                @foreach($customers as $cust)
+                                    <option value="{{ $cust->id }}">{{ $cust->name }} ({{ $cust->email ?? $cust->phone }})</option>
+                                @endforeach
+                            </select>
+                            <div class="form-text small text-muted">Hold Ctrl/Cmd to select multiple customers.</div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 shadow-sm">Assign Customers</button>
+                    </form>
+                </div>
+
+                <!-- Set Group Custom Price -->
+                <div class="card border shadow-sm p-4 bg-white">
+                    <h2 class="h5 fw-bold text-dark mb-3">Set Group Pricing</h2>
+                    <form action="{{ route('admin.group-custom-prices.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-secondary">Select Group</label>
+                            <select name="customer_group_id" class="form-select shadow-sm" required>
+                                <option value="">Choose Group...</option>
+                                @foreach($customerGroups as $group)
+                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-secondary">Select Product</label>
+                            <select name="product_id" class="form-select shadow-sm" required>
+                                <option value="">Choose Product...</option>
+                                @foreach($products as $prod)
+                                    <option value="{{ $prod->id }}">{{ $prod->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold text-secondary">Custom Price (₹)</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-light text-muted">₹</span>
+                                <input type="number" step="0.01" name="price" class="form-control" placeholder="0.00" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 shadow-sm">Save Group Price</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Side lists -->
+            <div class="col-12 col-md-8">
+                <!-- Groups and Members List -->
+                <div class="card border shadow-sm p-0 bg-white mb-4">
+                    <div class="card-header bg-light border-bottom p-3">
+                        <h2 class="h6 fw-bold text-secondary mb-0">Customer Groups & Members</h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 text-secondary">
+                            <thead class="bg-light text-uppercase small fw-medium text-muted">
+                                <tr>
+                                    <th class="px-3 py-3">Group Name</th>
+                                    <th class="px-3 py-3">Members</th>
+                                    <th class="px-3 py-3 text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($customerGroups as $group)
+                                <tr>
+                                    <td class="px-3 py-3">
+                                        <div class="fw-bold text-dark">{{ $group->name }}</div>
+                                        <div class="small text-muted">{{ $group->users->count() }} members</div>
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        @forelse($group->users as $u)
+                                            <span class="badge bg-light text-dark border p-2 mb-1 d-inline-flex align-items-center gap-2">
+                                                {{ $u->name }}
+                                                <form action="{{ route('admin.customer-groups.remove-user', [$group->id, $u->id]) }}" method="POST" class="m-0 p-0" onsubmit="return confirm('Remove user from group?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn-close" style="font-size: 8px; width: 6px; height: 6px;" aria-label="Close"></button>
+                                                </form>
+                                            </span>
+                                        @empty
+                                            <span class="text-muted small">No members assigned yet.</span>
+                                        @endforelse
+                                    </td>
+                                    <td class="px-3 py-3 text-end">
+                                        <form action="{{ route('admin.customer-groups.destroy', $group->id) }}" method="POST" onsubmit="return confirm('Delete this group and all its pricing rules?')" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link text-danger p-0 hover-text-danger shadow-none"><i class="fas fa-trash-can"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-muted">No customer groups created yet.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Group Pricing Rules List -->
+                <div class="card border shadow-sm p-0 bg-white">
+                    <div class="card-header bg-light border-bottom p-3">
+                        <h2 class="h6 fw-bold text-secondary mb-0">Active Group Pricing Rules</h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 text-secondary">
+                            <thead class="bg-light text-uppercase small fw-medium text-muted">
+                                <tr>
+                                    <th class="px-3 py-3">Group</th>
+                                    <th class="px-3 py-3">Product</th>
+                                    <th class="px-3 py-3">Group Custom Price</th>
+                                    <th class="px-3 py-3 text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($groupCustomPrices as $gcp)
+                                <tr>
+                                    <td class="px-3 py-3">
+                                        <div class="fw-bold text-dark">{{ $gcp->group->name }}</div>
+                                    </td>
+                                    <td class="px-3 py-3 text-dark fw-medium">
+                                        {{ $gcp->product->title }}
+                                    </td>
+                                    <td class="px-3 py-3 text-success fw-bold">
+                                        ₹{{ number_format($gcp->price, 2) }}
+                                    </td>
+                                    <td class="px-3 py-3 text-end">
+                                        <form action="{{ route('admin.group-custom-prices.destroy', $gcp->id) }}" method="POST" onsubmit="return confirm('Delete this group custom pricing rule?')" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link text-danger p-0 hover-text-danger shadow-none"><i class="fas fa-trash-can"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">No group custom pricing rules found.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     .hover-text-primary:hover { color: #008060 !important; }
@@ -256,6 +444,12 @@
             const customTab = document.getElementById('custom-prices-tab');
             if (customTab) {
                 const tab = new bootstrap.Tab(customTab);
+                tab.show();
+            }
+        } else if (urlParams.get('tab') === 'group-prices') {
+            const groupTab = document.getElementById('group-prices-tab');
+            if (groupTab) {
+                const tab = new bootstrap.Tab(groupTab);
                 tab.show();
             }
         }

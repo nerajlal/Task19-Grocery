@@ -1,6 +1,6 @@
-@extends('layouts.storefront')
+@extends('template_1.layouts.app')
 
-@section('title', 'Contact Us | VESPR Perfumes')
+@section('title', 'Contact Us | ' . ($currentTenant->name ?? 'Fresh Grocery'))
 
 @section('content')
 <div class="static-page-container">
@@ -9,19 +9,19 @@
     <div class="contact-grid">
         <div class="contact-info">
             <h2>Support</h2>
-            <p>Have a question about an order or a specific fragrance? Our team is here to help.</p>
+            <p>Have a question about an order or our fresh produce? Our team is here to help.</p>
             
             <div class="info-item">
                 <i class="fa-solid fa-envelope"></i>
-                <span>support@task19.com</span>
+                <span>{{ $currentTenant->contact_email ?? 'support@task19.com' }}</span>
             </div>
             <div class="info-item">
                 <i class="fa-solid fa-phone"></i>
-                <span>+91 98765 43210</span>
+                <span>{{ $currentTenant->contact_phone ?? '+91 98765 43210' }}</span>
             </div>
             <div class="info-item">
                 <i class="fa-solid fa-location-dot"></i>
-                <span>Fragrance House, MG Road, Bangalore, India</span>
+                <span>{{ $currentTenant->contact_address ?? 'Fresh Grocery, MG Road, Bangalore, India' }}</span>
             </div>
         </div>
 

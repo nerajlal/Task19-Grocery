@@ -76,13 +76,12 @@
                     <i class="fa-solid fa-images"></i>
                     <span>Hero Slider</span>
                 </a>
-            </li>
-            <li>
+            <!-- <li>
                  <a href="{{ route('admin.settings.home-products') }}" class="sidebar-item {{ request()->routeIs('admin.settings.home-products*') ? 'active' : '' }}">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
                     <span>Home Products</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                  <a href="{{ route('admin.settings.delivery-partners.index') }}" class="sidebar-item {{ request()->routeIs('admin.settings.delivery-partners*') ? 'active' : '' }}">
                     <i class="fa-solid fa-truck-ramp-box"></i>
@@ -113,6 +112,12 @@
                   <a href="{{ route('admin.settings.payment') }}" class="sidebar-item {{ request()->routeIs('admin.settings.payment*') ? 'active' : '' }}">
                      <i class="fa-solid fa-credit-card"></i>
                      <span>Payment Gateways</span>
+                 </a>
+             </li>
+             <li>
+                  <a href="{{ route('admin.settings.storefront') }}" class="sidebar-item {{ request()->routeIs('admin.settings.storefront*') ? 'active' : '' }}">
+                     <i class="fa-solid fa-file-lines"></i>
+                     <span>Storefront Pages</span>
                  </a>
              </li>
         </ul>
