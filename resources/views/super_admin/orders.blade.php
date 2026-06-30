@@ -37,7 +37,7 @@
                         <div class="text-muted small" style="font-size: 11px;">{{ $order->customer_email }}</div>
                     </td>
                     <td class="px-3 py-3">
-                        <span class="badge bg-info bg-opacity-10 text-info fw-bold">Tenant #{{ $order->tenant_id }}</span>
+                        <span class="badge bg-info bg-opacity-10 text-info fw-bold">{{ $order->tenant ? $order->tenant->name : 'Tenant #' . $order->tenant_id }}</span>
                     </td>
                     <td class="px-3 py-3 small text-uppercase text-muted">{{ $order->payment_method ?? 'COD' }}</td>
                     <td class="px-3 py-3">

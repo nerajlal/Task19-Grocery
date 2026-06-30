@@ -83,6 +83,7 @@ Route::prefix('superadmin')->name('super_admin.')->group(function () {
     Route::middleware([\App\Http\Middleware\SuperAdminMiddleware::class])->group(function () {
         Route::get('/', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/tenants', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'tenants'])->name('tenants');
+        Route::get('/tenants/{id}', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'showTenant'])->name('tenants.show');
         Route::get('/create-tenant', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'createTenant'])->name('create_tenant');
         Route::post('/create-tenant', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'storeTenant'])->name('store_tenant');
         Route::get('/orders', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'orders'])->name('orders');

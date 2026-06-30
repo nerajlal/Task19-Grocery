@@ -105,7 +105,6 @@
                             <th class="px-3 py-2 border-0 fw-semibold">Admin Info</th>
                             <th class="px-3 py-2 border-0 fw-semibold">Plan</th>
                             <th class="px-3 py-2 border-0 fw-semibold">Theme</th>
-                            <th class="px-3 py-2 border-0 fw-semibold text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -113,7 +112,10 @@
                         <tr>
                             <td class="px-3 py-3 fw-semibold text-dark">#{{ $tenant->id }}</td>
                             <td class="px-3 py-3">
-                                <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded fw-bold">{{ $tenant->name ?? 'N/A' }}</span>
+                                <div class="fw-bold mb-0" style="font-size: 14px;">
+                                    <a href="{{ route('super_admin.tenants.show', $tenant->id) }}" class="text-decoration-none text-primary hover-underline">{{ $tenant->name ?? 'N/A' }}</a>
+                                </div>
+                                <div class="text-muted small" style="font-size: 11px;">{{ $tenant->domain }}</div>
                             </td>
                             <td class="px-3 py-3">
                                 @if($tenant->admin)
@@ -129,15 +131,11 @@
                             <td class="px-3 py-3">
                                 <span class="badge bg-secondary bg-opacity-10 text-secondary small text-capitalize fw-bold">{{ str_replace('_', ' ', $tenant->theme ?? 'aura_luxe') }}</span>
                             </td>
-                            <td class="px-3 py-3 text-end">
-                                <a href="{{ route('admin.dashboard', ['tenant' => $tenant->id]) }}" class="btn btn-sm btn-outline-secondary rounded-3">
-                                    <i class="fas fa-eye me-1"></i> Admin Panel
-                                </a>
-                            </td>
+
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
+                            <td colspan="5" class="text-center py-5 text-muted">
                                 <div class="d-flex flex-column align-items-center">
                                     <i class="fas fa-users-slash fs-1 mb-3 opacity-25"></i>
                                     <p class="mb-0">No tenants found.</p>
@@ -247,7 +245,7 @@
                         <div class="text-muted small" style="font-size: 11px;">{{ $order->customer_email }}</div>
                     </td>
                     <td class="px-3 py-3">
-                        <span class="badge bg-info bg-opacity-10 text-info fw-bold">Tenant #{{ $order->tenant_id }}</span>
+                        <span class="badge bg-info bg-opacity-10 text-info fw-bold">{{ $order->tenant ? $order->tenant->name : 'Tenant #' . $order->tenant_id }}</span>
                     </td>
                     <td class="px-3 py-3 small text-uppercase text-muted">{{ $order->payment_method ?? 'COD' }}</td>
                     <td class="px-3 py-3">

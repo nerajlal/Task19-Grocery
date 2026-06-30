@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $totalRevenue = \App\Models\Order::where('status', '!=', 'cancelled')->sum('total_amount');
         $totalCustomers = \App\Models\User::where('type', 'user')->count();
         
-        $recentOrders = \App\Models\Order::latest()->take(5)->get();
+        $recentOrders = \App\Models\Order::with('tenant')->latest()->take(5)->get();
         
         $planBreakdown = [
             'sprout' => \App\Models\Tenant::where('plan', 'sprout')->count(),
@@ -84,7 +84,7 @@ class DashboardController extends Controller
 
     public function orders()
     {
-        $orders = \App\Models\Order::latest()->paginate(15);
+        $orders = \App\Models\Order::with('tenant')->latest()->paginate(15);
         return view('super_admin.orders', compact('orders'));
     }
 
@@ -146,5 +146,49 @@ class DashboardController extends Controller
             'total_users' => \App\Models\User::count(),
         ];
         return view('super_admin.status', compact('statusInfo'));
+    }
+
+    public function showTenant($id)
+    {
+        $tenant = \App\Models\Tenant::with('admin')->findOrFail($id);
+
+        $totalProducts = \App\Models\Product::withoutGlobalScopes()->where('tenant_id', $id)->count();
+        $totalOrders = \App\Models\Order::withoutGlobalScopes()->where('tenant_id', $id)->count();
+        
+        $totalSales = \App\Models\Order::withoutGlobalScopes()
+            ->where('tenant_id', $id)
+            ->where('status', '!=', 'cancelled')
+            ->sum('total_amount');
+            
+        $totalCustomers = \App\Models\User::where('tenant_id', $id)
+            ->where('type', 'user')
+            ->count();
+
+        $recentOrders = \App\Models\Order::withoutGlobalScopes()
+            ->where('tenant_id', $id)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $lowStockItems = \App\Models\ProductVariant::where('stock', '<', 10)
+            ->whereHas('product', function($q) use ($id) {
+                $q->withoutGlobalScopes()->where('tenant_id', $id);
+            })
+            ->with(['product' => function($q) {
+                $q->withoutGlobalScopes();
+            }])
+            ->orderBy('stock', 'asc')
+            ->take(5)
+            ->get();
+
+        return view('super_admin.show_tenant', compact(
+            'tenant',
+            'totalProducts',
+            'totalOrders',
+            'totalSales',
+            'totalCustomers',
+            'recentOrders',
+            'lowStockItems'
+        ));
     }
 }
