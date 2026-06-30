@@ -13,9 +13,12 @@
             <div class="d-flex flex-column gap-1">
                 <span class="fw-medium text-dark hover-success mb-0">{{ $product->title }}</span>
                 @if($product->bundles->where('type', 'pack')->isNotEmpty())
-                    <div>
-                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill fw-medium" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">
-                            <i class="fas fa-layer-group me-1"></i> Pack Offer
+                    <div class="mt-1">
+                        <span class="badge rounded-pill fw-medium" style="font-size: 0.7rem; padding: 0.2rem 0.5rem; background-color: rgba(99, 102, 241, 0.1); color: rgb(79, 70, 229); border: 1px solid rgba(99, 102, 241, 0.2);">
+                            <i class="fas fa-boxes me-1"></i> Pack: 
+                            {{ $product->bundles->where('type', 'pack')->map(function($b) {
+                                return $b->pivot->quantity ?? (preg_match('/Pack of (\d+)/i', $b->title, $m) ? $m[1] : null);
+                            })->filter()->unique()->sort()->map(fn($q) => $q . 'x')->implode(', ') }}
                         </span>
                     </div>
                 @endif

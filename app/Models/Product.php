@@ -77,7 +77,7 @@ class Product extends Model
 
     public function bundles()
     {
-        return $this->belongsToMany(\App\Models\Bundle::class, 'bundle_product');
+        return $this->belongsToMany(\App\Models\Bundle::class, 'bundle_product')->withPivot('quantity', 'product_variant_id')->withTimestamps();
     }
 
     public function getStartingPriceAttribute()

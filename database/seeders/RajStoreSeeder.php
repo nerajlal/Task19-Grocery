@@ -146,6 +146,9 @@ class RajStoreSeeder extends Seeder
                     ['size' => 'Pack of 6', 'price' => 60.00, 'stock' => 45],
                     ['size' => 'Pack of 12', 'price' => 115.00, 'stock' => 40],
                     ['size' => 'Crate of 30', 'price' => 270.00, 'stock' => 15],
+                ],
+                'packs' => [
+                    ['variant_size' => 'Pack of 6', 'quantity' => 3, 'pack_price' => 150.00],
                 ]
             ],
             [
@@ -190,6 +193,10 @@ class RajStoreSeeder extends Seeder
                 'variants' => [
                     ['size' => '1kg Bag', 'price' => 150.00, 'stock' => 100],
                     ['size' => '5kg Family Pack', 'price' => 720.00, 'stock' => 40],
+                ],
+                'packs' => [
+                    ['variant_size' => '1kg Bag', 'quantity' => 5, 'pack_price' => 650.00],
+                    ['variant_size' => '1kg Bag', 'quantity' => 10, 'pack_price' => 1200.00],
                 ]
             ],
             [
@@ -248,6 +255,43 @@ class RajStoreSeeder extends Seeder
                         'price' => $v['price'],
                         'stock' => $v['stock'],
                     ]);
+                }
+            }
+
+            // Seed pack deals
+            if (isset($gp['packs'])) {
+                foreach ($gp['packs'] as $pData) {
+                    $variant = ProductVariant::where('product_id', $product->id)
+                        ->where('size', $pData['variant_size'])
+                        ->first();
+                        
+                    if ($variant) {
+                        $title = "Pack of {$pData['quantity']} - {$product->title} - {$variant->size}";
+                        $originalTotal = $variant->price * $pData['quantity'];
+                        $discountValue = max(0, $originalTotal - $pData['pack_price']);
+                        
+                        $bundle = \App\Models\Bundle::withoutGlobalScopes()
+                            ->where('tenant_id', $tenant->id)
+                            ->where('title', $title)
+                            ->first();
+                            
+                        if (!$bundle) {
+                            $bundle = \App\Models\Bundle::create([
+                                'tenant_id' => $tenant->id,
+                                'title' => $title,
+                                'slug' => Str::slug($title) . '-' . $product->id . '-' . rand(100, 999),
+                                'type' => 'pack',
+                                'discount_type' => 'fixed',
+                                'discount_value' => $discountValue,
+                                'status' => 'active',
+                            ]);
+                            
+                            $bundle->products()->attach($product->id, [
+                                'quantity' => $pData['quantity'],
+                                'product_variant_id' => $variant->id
+                            ]);
+                        }
+                    }
                 }
             }
         }
