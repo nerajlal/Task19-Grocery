@@ -290,6 +290,22 @@ To ensure checkout logic and structure is reusable across all storefront themes,
 - Layout Inheritance: Extends `$layout` dynamically passed from the controller (`@extends($layout ?? 'template_1.layouts.app')`). This allows the same checkout to render seamlessly inside any active theme's wrapper header/footer.
 - Fields: Contact details (Auto-filled for authenticated users), Delivery address (Street, City, State, PIN code), and Payment Selection (Cash on Delivery / Razorpay Online options).
 
+---
+
+## 11. Backend Pricing Rules Engine (Theme-Agnostic)
+
+When building or integrating new storefront themes, price rendering (such as on product cards, catalog lists, cart totals, and checkout templates) should **always** reference `$product->starting_price` or `$variant->price` to ensure that custom pricing is correctly rendered.
+
+### Pricing Override Priorities:
+1. **Individual Custom Price**: Checked first. If a record in `custom_prices` exists for the logged-in customer and product, that price is returned.
+2. **Group Custom Price**: Checked second. If the logged-in customer belongs to a `customer_group` that has a custom price override defined for the product in `group_custom_prices`, that price is returned.
+3. **Standard Price**: Default value stored in the `product_variants` database table.
+
+### Guidelines for Theme Creators:
+- Do **NOT** read product prices directly from raw query builder calls (e.g. database selections bypassing Eloquent).
+- **Always** retrieve prices via the Eloquent models (`$variant->price` or `$product->starting_price`) so that the model accessors correctly intercept and apply custom overrides.
+
+
 
 
 
