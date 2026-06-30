@@ -23,6 +23,7 @@
             --bg-light: #f8fafc;
             --border-color: #e2e8f0;
             --text-muted: #64748b;
+            --header-height: 125px;
         }
 
         body {

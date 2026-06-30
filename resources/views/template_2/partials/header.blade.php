@@ -1,4 +1,4 @@
-<header class="store-header" style="box-shadow: 0 4px 12px rgba(0,0,0,0.03); background: #fff; border-bottom: 1px solid var(--border-color); padding: 0.5rem 0;">
+<header class="store-header" style="display: flex; flex-direction: column; align-items: stretch; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.03); background: #fff; border-bottom: 1px solid var(--border-color); padding: 0.5rem 0;">
     <div class="header-container" style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 1.5rem; gap: 2rem;">
         <a href="{{ route('v3.home') }}" class="logo" style="color: var(--accent-color); font-weight: 800; font-size: 1.6rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
             <i class="fa-solid fa-leaf"></i>{{ $currentTenant->name ?? 'Fresh Grocery' }}
