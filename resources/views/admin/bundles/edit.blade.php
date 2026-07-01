@@ -11,6 +11,17 @@
             <h1 class="h3 mb-0 text-dark">Edit bundle</h1>
         </div>
 
+        @if ($errors->any())
+            <div class="alert alert-danger shadow-sm mb-4 border-0">
+                <h5 class="alert-heading fw-bold mb-2"><i class="fas fa-exclamation-triangle me-2"></i>Please fix the following errors:</h5>
+                <ul class="mb-0 ps-3">
+                    @foreach ($errors->all() as $error)
+                        <li class="small">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('admin.bundles.update', $bundle->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -35,14 +46,14 @@
                             @endif
                             @if($bundle->type != 'pack')
                                 <div>
-                                    <label class="form-label fw-medium text-secondary small">Image (WebP only)</label>
+                                    <label class="form-label fw-medium text-secondary small">Image (WebP, PNG, JPG, JPEG)</label>
                                     @if($bundle->image)
                                         <div class="mb-2">
                                             <img src="{{ Storage::url($bundle->image) }}" class="rounded border"
                                                 style="width: 100px; height: 100px; object-fit: cover;">
                                         </div>
                                     @endif
-                                    <input type="file" name="image" class="form-control" accept="image/webp">
+                                    <input type="file" name="image" class="form-control" accept="image/webp,image/png,image/jpeg,image/jpg">
                                 </div>
                             @endif
                         </div>

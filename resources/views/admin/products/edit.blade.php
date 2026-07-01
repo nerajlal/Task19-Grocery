@@ -59,7 +59,7 @@
                     </div>
                     -->
 
-                    <input type="file" id="media_upload" name="media[]" multiple accept=".webp" class="d-none" onchange="handleFileSelect(event)">
+                    <input type="file" id="media_upload" name="media[]" multiple accept=".webp,.png,.jpg,.jpeg" class="d-none" onchange="handleFileSelect(event)">
                     
                     <!-- Preview Grid -->
                     <div id="media_preview_grid" class="row g-3 mb-3 {{ $product->images->isEmpty() ? 'd-none' : '' }}">
@@ -81,7 +81,7 @@
                         <div class="d-flex flex-column align-items-center">
                             <i class="fas fa-image text-secondary opacity-50 fs-2 mb-2"></i>
                             <span class="text-secondary small fw-medium mb-1">Add images</span>
-                            <p class="text-muted extra-small mb-0">Accepts .webp images only</p>
+                            <p class="text-muted extra-small mb-0">Accepts .webp, .png, .jpg, .jpeg images</p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,11 @@
                     for (let i = 0; i < files.length; i++) {
                         const file = files[i];
                         
-                        if (!file.type.startsWith('image/')) continue;
+                        const allowedTypes = ['image/webp', 'image/png', 'image/jpeg', 'image/jpg'];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert('Only WebP, PNG, JPG, and JPEG images are allowed: ' + file.name);
+                            continue;
+                        }
 
                         const reader = new FileReader();
                         reader.onload = function(e) {

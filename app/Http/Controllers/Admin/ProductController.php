@@ -8,6 +8,7 @@ use App\Models\Collection;
 use App\Models\Attribute;
 use App\Models\ProductVariant;
 use App\Models\ProductImage;
+use App\Models\Bundle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;

@@ -11,6 +11,17 @@
         <h1 class="h3 mb-0 text-dark">Create bundle</h1>
     </div>
 
+    @if ($errors->any())
+        <div class="alert alert-danger shadow-sm mb-4 border-0">
+            <h5 class="alert-heading fw-bold mb-2"><i class="fas fa-exclamation-triangle me-2"></i>Please fix the following errors:</h5>
+            <ul class="mb-0 ps-3">
+                @foreach ($errors->all() as $error)
+                    <li class="small">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('admin.bundles.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
@@ -29,8 +40,8 @@
                             <textarea name="description" rows="4" class="form-control"></textarea>
                         </div>
                          <div>
-                            <label class="form-label fw-medium text-secondary small">Image (WebP only)</label>
-                            <input type="file" name="image" class="form-control" accept="image/webp">
+                            <label class="form-label fw-medium text-secondary small">Image (WebP, PNG, JPG, JPEG)</label>
+                            <input type="file" name="image" class="form-control" accept="image/webp,image/png,image/jpeg,image/jpg">
                         </div>
                      </div>
                 </div>
